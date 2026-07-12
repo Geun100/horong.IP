@@ -276,6 +276,57 @@
       line-height: 1.6;
     }
 
+    .goods__email-status {
+      margin-top: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border: 1px solid #ece4d4;
+      border-radius: 999px;
+      padding: 8px 18px;
+      font-size: 14px;
+      color: var(--ink);
+    }
+
+    .goods__email-status strong {
+      color: var(--peach-deep);
+    }
+
+    .goods__email-status button {
+      background: none;
+      border: none;
+      color: var(--ink-soft);
+      text-decoration: underline;
+      font-size: 13px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 28px;
+      transform: translateX(-50%) translateY(12px);
+      background: #2b241c;
+      color: #fff;
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+      z-index: 200;
+      opacity: 0;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .toast.is-visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
     .goods__grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -348,15 +399,15 @@
 
     .card__like {
       flex-shrink: 0;
-      width: 36px;
       height: 36px;
+      padding: 0 12px 0 10px;
       border: none;
-      border-radius: 50%;
+      border-radius: 999px;
       background: #f1ebe0;
       color: var(--ink-soft);
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 6px;
       cursor: pointer;
       transition: transform 0.15s, background 0.2s, color 0.2s;
     }
@@ -366,12 +417,20 @@
     }
 
     .card__like:active {
-      transform: scale(0.9);
+      transform: scale(0.95);
     }
 
     .card__like svg {
       width: 18px;
       height: 18px;
+      flex-shrink: 0;
+    }
+
+    .card__like-count {
+      font-size: 13px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      min-width: 1ch;
     }
 
     .card__like.is-liked {
@@ -522,7 +581,8 @@
 
     .sns__cta {
       margin-top: 20px;
-      align-self: flex-start;
+      width: 100%;
+      justify-content: center;
     }
 
     /* ── Modal ─────────────────────────── */
@@ -881,7 +941,27 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 14px;
+    }
+
+    .story-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      animation: stickerPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    .story-line:nth-child(1) {
+      animation-delay: 0.35s;
+    }
+
+    .story-line:nth-child(2) {
+      animation-delay: 0.85s;
+    }
+
+    .story-line:nth-child(3) {
+      animation-delay: 1.4s;
     }
 
     .story-bubble {
@@ -894,31 +974,24 @@
       font-weight: 600;
       line-height: 1.5;
       text-align: left;
-      opacity: 0;
-      animation: bubblePop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
     }
 
-    .story-bubble:nth-child(1) {
-      animation-delay: 0.35s;
+    .story-line__emoji {
+      flex-shrink: 0;
+      width: clamp(72px, 15vw, 116px);
+      height: auto;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.4));
     }
 
-    .story-bubble:nth-child(2) {
-      animation-delay: 0.85s;
-    }
-
-    .story-bubble:nth-child(3) {
-      animation-delay: 1.4s;
-    }
-
-    @keyframes bubblePop {
+    @keyframes stickerPop {
       from {
         opacity: 0;
-        transform: scale(0.9) translateX(-6px);
+        transform: scale(0.4) rotate(-8deg);
       }
 
       to {
         opacity: 1;
-        transform: scale(1) translateX(0);
+        transform: scale(1) rotate(0deg);
       }
     }
 
@@ -1076,27 +1149,22 @@
 
     .story-entry__icon {
       flex-shrink: 0;
-      width: clamp(56px, 8vw, 80px);
-      height: clamp(56px, 8vw, 80px);
-      border-radius: 50%;
-      background: rgba(245, 154, 107, 0.15);
-      border: 1.5px solid rgba(245, 154, 107, 0.3);
+      width: clamp(96px, 13vw, 148px);
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
-      font-size: clamp(24px, 3.5vw, 36px);
-      transition: background 0.2s;
+      transition: transform 0.2s;
     }
 
     .story-entry__icon img {
-      width: 82%;
-      height: 82%;
+      width: 100%;
+      height: auto;
       object-fit: contain;
+      filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.35));
     }
 
     .story-entry:hover .story-entry__icon {
-      background: rgba(245, 154, 107, 0.25);
+      transform: translateY(-2px) scale(1.03);
     }
 
     .story-entry__body {
@@ -1276,7 +1344,7 @@
     <div class="story-section">
       <button class="story-entry" id="story-open-btn" aria-haspopup="dialog" aria-label="호롱이 탄생 스토리 보기"
         style="height: 100%;">
-        <div class="story-entry__icon"><img src="horong_e.png" alt="" /></div>
+        <div class="story-entry__icon"><img src="horong1.png" alt="" /></div>
         <div class="story-entry__body">
           <p class="story-entry__label">ORIGIN STORY</p>
           <h2 class="story-entry__title">호롱이의 탄생</h2>
@@ -1285,47 +1353,9 @@
         </div>
       </button>
 
-      <div class="story-meaning">
-        <h3 class="story-meaning__title">왜 '호롱'일까요?</h3>
-        <div class="story-meaning__equation">HORONG = 호미곶 + 호롱불</div>
-
-        <ul class="story-meaning__list">
-          <li class="story-meaning__item">
-            <h4>호 (호미곶)</h4>
-            <p>포항에서 가장 먼저 해가 떠오르는 곳.</p>
-          </li>
-          <li class="story-meaning__item">
-            <h4>롱 (호롱불)</h4>
-            <p>희망과 따뜻함,<br />그리고 사람들의 추억을 비추는 작은 불빛.</p>
-          </li>
-        </ul>
-
-        <div class="story-meaning__divider"></div>
-
-        <h4 style="font-size: 18px; font-weight: 800; color: var(--ink); margin-bottom: 16px;">이름에 담긴 의미</h4>
-        <ul class="story-meaning__list" style="gap: 12px; margin-bottom: 32px;">
-          <li class="story-meaning__item" style="display: flex; align-items: center; gap: 8px;"><span
-              style="font-size: 20px;">☀️</span>
-            <p style="font-weight: 600; color: var(--ink);">첫 햇살</p>
-          </li>
-          <li class="story-meaning__item" style="display: flex; align-items: center; gap: 8px;"><span
-              style="font-size: 20px;">🔥</span>
-            <p style="font-weight: 600; color: var(--ink);">따뜻한 불빛</p>
-          </li>
-          <li class="story-meaning__item" style="display: flex; align-items: center; gap: 8px;"><span
-              style="font-size: 20px;">🤍</span>
-            <p style="font-weight: 600; color: var(--ink);">사람들의 이야기</p>
-          </li>
-          <li class="story-meaning__item" style="display: flex; align-items: center; gap: 8px;"><span
-              style="font-size: 20px;">🌊</span>
-            <p style="font-weight: 600; color: var(--ink);">포항의 여행</p>
-          </li>
-        </ul>
-
-        <div class="story-meaning__promise">
-          <span style="color: var(--peach); display: block; margin-bottom: 8px;">호롱이의 약속</span>
-          작은 이야기 하나도<br />오래도록 빛날 수 있도록.
-        </div>
+      <div class="story-meaning" style="padding: 0; overflow: hidden;">
+        <img src="horong_desc.png" alt="왜 호롱일까요? HORONG = 호미곶 + 호롱불"
+          style="width: 100%; height: 100%; object-fit: cover; display: block;" />
       </div>
     </div>
   </div>
@@ -1334,6 +1364,10 @@
     <div class="goods__head">
       <h2 class="goods__title">호롱이 굿즈</h2>
       <p class="goods__sub">아직 출시 전이에요. 갖고 싶은 굿즈에 구매 의사를 남겨주시면 출시 소식을 가장 먼저 알려드려요.</p>
+      <p class="goods__email-status" id="goods-email-status" hidden>
+        <span id="goods-email-text"></span>
+        <button type="button" id="goods-email-edit">변경</button>
+      </p>
     </div>
     <div class="goods__grid">
       <article class="card">
@@ -1345,7 +1379,7 @@
                 stroke-width="2" fill="none">
                 <path
                   d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z" />
-              </svg></button>
+              </svg><span class="card__like-count" data-like-count>0</span></button>
           </div>
           <button class="card__cta" data-item="봉제인형 (25cm)">구매 의사 등록</button>
         </div>
@@ -1359,7 +1393,7 @@
                 stroke-width="2" fill="none">
                 <path
                   d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z" />
-              </svg></button>
+              </svg><span class="card__like-count" data-like-count>0</span></button>
           </div>
           <button class="card__cta" data-item="키링 인형 (10cm)">구매 의사 등록</button>
         </div>
@@ -1373,7 +1407,7 @@
                 stroke-width="2" fill="none">
                 <path
                   d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z" />
-              </svg></button>
+              </svg><span class="card__like-count" data-like-count>0</span></button>
           </div>
           <button class="card__cta" data-item="아크릴 키링">구매 의사 등록</button>
         </div>
@@ -1387,7 +1421,7 @@
                 stroke-width="2" fill="none">
                 <path
                   d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z" />
-              </svg></button>
+              </svg><span class="card__like-count" data-like-count>0</span></button>
           </div>
           <button class="card__cta" data-item="스티커팩">구매 의사 등록</button>
         </div>
@@ -1401,7 +1435,7 @@
                 stroke-width="2" fill="none">
                 <path
                   d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z" />
-              </svg></button>
+              </svg><span class="card__like-count" data-like-count>0</span></button>
           </div>
           <button class="card__cta" data-item="메모지">구매 의사 등록</button>
         </div>
@@ -1415,7 +1449,7 @@
                 stroke-width="2" fill="none">
                 <path
                   d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z" />
-              </svg></button>
+              </svg><span class="card__like-count" data-like-count>0</span></button>
           </div>
           <button class="card__cta" data-item="볼펜">구매 의사 등록</button>
         </div>
@@ -1429,7 +1463,7 @@
                 stroke-width="2" fill="none">
                 <path
                   d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z" />
-              </svg></button>
+              </svg><span class="card__like-count" data-like-count>0</span></button>
           </div>
           <button class="card__cta" data-item="머그컵">구매 의사 등록</button>
         </div>
@@ -1443,7 +1477,7 @@
                 stroke-width="2" fill="none">
                 <path
                   d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z" />
-              </svg></button>
+              </svg><span class="card__like-count" data-like-count>0</span></button>
           </div>
           <button class="card__cta" data-item="텀블러">구매 의사 등록</button>
         </div>
@@ -1457,7 +1491,7 @@
                 stroke-width="2" fill="none">
                 <path
                   d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z" />
-              </svg></button>
+              </svg><span class="card__like-count" data-like-count>0</span></button>
           </div>
           <button class="card__cta" data-item="코스터">구매 의사 등록</button>
         </div>
@@ -1471,7 +1505,7 @@
                 stroke-width="2" fill="none">
                 <path
                   d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z" />
-              </svg></button>
+              </svg><span class="card__like-count" data-like-count>0</span></button>
           </div>
           <button class="card__cta" data-item="파우치">구매 의사 등록</button>
         </div>
@@ -1485,7 +1519,7 @@
                 stroke-width="2" fill="none">
                 <path
                   d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z" />
-              </svg></button>
+              </svg><span class="card__like-count" data-like-count>0</span></button>
           </div>
           <button class="card__cta" data-item="티셔츠">구매 의사 등록</button>
         </div>
@@ -1499,7 +1533,7 @@
                 stroke-width="2" fill="none">
                 <path
                   d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z" />
-              </svg></button>
+              </svg><span class="card__like-count" data-like-count>0</span></button>
           </div>
           <button class="card__cta" data-item="양말">구매 의사 등록</button>
         </div>
@@ -1528,7 +1562,7 @@
         </div>
       </a>
       <div class="sns__gallery-card">
-        <img src="image.png" alt="호롱이 스티커 모음" loading="lazy" />
+        <img src="horong_emoticon.png" alt="호롱이 스티커 모음" loading="lazy" />
         <a class="btn btn--primary sns__cta" href="https://www.instagram.com/horong_pass/" target="_blank"
           rel="noopener">인스타그램 팔로우하기 &rarr;</a>
       </div>
@@ -1543,63 +1577,39 @@
 
     <div class="story-modal__stage" id="story-stage">
 
-      <!-- 씬 1 -->
+      <!-- 씬 0: 도입 (탄생 서사 압축) -->
       <div class="story-scene is-active" data-scene="0">
         <p class="story-scene__quote">Pohang · 호미곶</p>
         <p class="story-scene__text">
           포항에서 가장 먼저 떠오르는 해에는<br />
           <span class="soft">아무도 모르는 작은 비밀이 있습니다.</span>
         </p>
+        <div class="story-divider"></div>
+        <p class="story-scene__text">
+          그 첫 햇살 속에서 작은 불빛 하나가 조용히 태어나,<br />
+          <span class="soft">사람들의 이야기를 품으며 자라났습니다.</span>
+        </p>
       </div>
 
-      <!-- 씬 2 -->
+      <!-- 씬 1: 성장 -->
       <div class="story-scene" data-scene="1">
         <p class="story-scene__text">
-          매일 아침,<br />
-          <em>첫 번째 햇살이 바다를 비추면</em>
+          누군가의 웃음, 여행의 설렘, 잊지 못할 추억까지
         </p>
         <div class="story-divider"></div>
         <p class="story-scene__text">
-          세상에서 가장 작은 불빛 하나가<br />
-          <span class="soft">조용히 깨어납니다.</span>
+          <span class="soft">그렇게 조금씩 자라난 불빛은,<br />어느새 세상 밖으로 걸어 나왔습니다.</span>
         </p>
       </div>
 
-      <!-- 씬 3 -->
+      <!-- 씬 2: 이름 공개 -->
       <div class="story-scene" data-scene="2">
-        <p class="story-scene__text">
-          조용히 깨어난 그 불빛은
-        </p>
-        <div class="story-divider"></div>
-        <p class="story-scene__text">
-          사람들의 웃음,<br />
-          여행의 설렘,<br />
-          <em>잊지 못할 추억을 품은 채</em><br />
-          <span class="soft">조금씩, 조금씩 자라납니다.</span>
-        </p>
-      </div>
-
-      <!-- 씬 4 -->
-      <div class="story-scene" data-scene="3">
-        <p class="story-scene__text">
-          <span class="soft">충분히 커진 그날,</span><br />
-          불빛은 몇 계단을 넘어 세상 밖으로 나왔습니다.
-        </p>
-        <div class="story-divider"></div>
-        <p class="story-scene__text">
-          <em>한 친구가 되어,</em><br />
-          <span class="soft">이 세상에 조용히 등장했습니다.</span>
-        </p>
-      </div>
-
-      <!-- 씬 5: 이름 공개 -->
-      <div class="story-scene" data-scene="4">
         <p class="story-scene__quote" style="margin-bottom:32px;">그 이름이</p>
         <p class="story-scene__name">HOR<span class="dot">·</span>ONG</p>
       </div>
 
-      <!-- 씬 6: 호롱이 등장 + 대사 -->
-      <div class="story-scene story-scene--chat" data-scene="5">
+      <!-- 씬 2: 호롱이 등장 + 대사 -->
+      <div class="story-scene story-scene--chat" data-scene="3">
         <div class="story-chat__character">
           <div class="story-chat__avatar">
             <img src="horong_e.png" alt="호롱이" />
@@ -1607,16 +1617,25 @@
           <div>
             <p class="story-chat__name">HORONG</p>
             <div class="story-chat__bubbles">
-              <div class="story-bubble">"뭐 하노~? 포항 돌아다니니 너무 좋다!"</div>
-              <div class="story-bubble">"내는 호롱이데이! 니 이름은 뭐노?"</div>
-              <div class="story-bubble">"빨리 온나~ 내랑 놀러 가자!"</div>
+              <div class="story-line">
+                <div class="story-bubble">"뭐하노~ 내는 호롱이데이!"</div>
+                <img class="story-line__emoji" src="horong_line1.png" alt="" />
+              </div>
+              <div class="story-line">
+                <div class="story-bubble">"오늘 날씨 너무 좋데이~ 맞제?"</div>
+                <img class="story-line__emoji" src="horong_line2.png" alt="" />
+              </div>
+              <div class="story-line">
+                <div class="story-bubble">"빨리 온나~ 내랑 놀러 가자!"</div>
+                <img class="story-line__emoji" src="horong_line3.png" alt="" />
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 씬 7: 엔딩 메시지 -->
-      <div class="story-scene story-scene--ending" data-scene="6">
+      <!-- 씬 3: 엔딩 메시지 -->
+      <div class="story-scene story-scene--ending" data-scene="4">
         <p class="story-scene__text">
           어쩌면,<br />
           호롱이가 찾고 있는 다음 이야기는
@@ -1643,7 +1662,7 @@
       <button class="modal__close" data-close aria-label="닫기">&times;</button>
       <div id="modal-step-form">
         <h3 class="modal__title" id="modal-title">아직 출시 전이에요</h3>
-        <p class="modal__desc"><strong id="modal-item-name"></strong> 구매 의사가 등록됐어요.<br />이메일을 남기면 출시 때 바로 알려드릴게요.</p>
+        <p class="modal__desc" id="modal-desc">이메일을 남기면 출시 때 바로 알려드릴게요.</p>
         <form class="modal__form" id="interest-form">
           <label class="modal__label" for="interest-email">이메일</label>
           <input class="modal__input" id="interest-email" type="email" placeholder="you@example.com" required />
@@ -1659,7 +1678,30 @@
     </div>
   </div>
 
+  <div class="toast" id="interest-toast" hidden></div>
+
   <script>
+    // ── 히어로 영상: 첫 재생만 소리, 이후 반복은 무음 ──────────────
+    (function () {
+      const oneShotSoundVideos = document.querySelectorAll('.hero__video, .sns__video-card video');
+      oneShotSoundVideos.forEach((video) => {
+        video.loop = false;
+        let soundUsed = false;
+        const tryUnmute = () => {
+          if (soundUsed) return;
+          soundUsed = true;
+          video.muted = false;
+        };
+        document.addEventListener('click', tryUnmute, { once: true });
+        document.addEventListener('touchstart', tryUnmute, { once: true });
+        video.addEventListener('ended', () => {
+          video.muted = true;
+          video.currentTime = 0;
+          video.play();
+        });
+      });
+    })();
+
     // ── 스토리 모달 ──────────────────────────────────────────────
     const storyModal = document.getElementById('story-modal');
     const storyStage = document.getElementById('story-stage');
@@ -1769,7 +1811,7 @@
     const modal = document.getElementById('interest-modal');
     const stepForm = document.getElementById('modal-step-form');
     const stepDone = document.getElementById('modal-step-done');
-    const itemNameEl = document.getElementById('modal-item-name');
+    const modalDescEl = document.getElementById('modal-desc');
     const form = document.getElementById('interest-form');
     const emailInput = document.getElementById('interest-email');
     let currentItem = null;
@@ -1797,23 +1839,92 @@
       btn.disabled = true;
     }
 
+    // ── 등록된 이메일 한 번만 물어보고 재사용 ──────────────────────
+    const emailStatus = document.getElementById('goods-email-status');
+    const emailStatusText = document.getElementById('goods-email-text');
+    const emailEditBtn = document.getElementById('goods-email-edit');
+    const toast = document.getElementById('interest-toast');
+    let toastTimer = null;
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.hidden = false;
+      requestAnimationFrame(() => toast.classList.add('is-visible'));
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('is-visible');
+        setTimeout(() => { toast.hidden = true; }, 250);
+      }, 2200);
+    }
+
+    function getSavedEmail() {
+      return localStorage.getItem('horong_email') || '';
+    }
+
+    function hasEmailChoice() {
+      return localStorage.getItem('horong_email_choice_made') === '1';
+    }
+
+    function saveEmailChoice(email) {
+      localStorage.setItem('horong_email_choice_made', '1');
+      if (email) localStorage.setItem('horong_email', email);
+      else localStorage.removeItem('horong_email');
+      renderEmailStatus();
+    }
+
+    function renderEmailStatus() {
+      const email = getSavedEmail();
+      if (email) {
+        emailStatusText.innerHTML = `<strong>${email}</strong>로 출시 알림 받는 중`;
+        emailStatus.hidden = false;
+      } else if (hasEmailChoice()) {
+        emailStatusText.textContent = '이메일 없이 관심만 등록 중';
+        emailStatus.hidden = false;
+      } else {
+        emailStatus.hidden = true;
+      }
+    }
+
+    function openEmailModal(item) {
+      currentItem = item;
+      currentBtn = item
+        ? [...document.querySelectorAll('.card__cta')].find(b => b.dataset.item === item)
+        : null;
+      modalDescEl.innerHTML = item
+        ? `<strong>${item}</strong> 구매 의사가 등록됐어요.<br />이메일을 남기면 출시 때 바로 알려드릴게요.`
+        : '이메일을 남기면 출시 때 바로 알려드릴게요.';
+      stepForm.hidden = false;
+      stepDone.hidden = true;
+      emailInput.value = getSavedEmail();
+      modal.hidden = false;
+      emailInput.focus();
+    }
+
     document.querySelectorAll('.card__cta').forEach(btn => {
       btn.addEventListener('click', () => {
-        currentItem = btn.dataset.item;
-        currentBtn = btn;
-        itemNameEl.textContent = currentItem;
-        stepForm.hidden = false;
-        stepDone.hidden = true;
-        emailInput.value = '';
-        modal.hidden = false;
-        emailInput.focus();
+        const item = btn.dataset.item;
+        if (hasEmailChoice()) {
+          // 이미 이메일(또는 미입력) 선택을 마쳤으면 모달 없이 바로 등록
+          const email = getSavedEmail();
+          markInterest(item, email || null);
+          markButtonDone(btn);
+          showToast(email ? `등록완료 · ${email}로 알려드릴게요` : `${item} 등록완료`);
+          return;
+        }
+        openEmailModal(item);
       });
     });
 
+    emailEditBtn.addEventListener('click', () => openEmailModal(null));
+
     form.addEventListener('submit', e => {
       e.preventDefault();
-      markInterest(currentItem, emailInput.value.trim());
-      markButtonDone(currentBtn);
+      const email = emailInput.value.trim();
+      saveEmailChoice(email);
+      if (currentItem) {
+        markInterest(currentItem, email || null);
+        markButtonDone(currentBtn);
+      }
       stepForm.hidden = true;
       stepDone.hidden = false;
       setTimeout(() => { modal.hidden = true; }, 1400);
@@ -1821,9 +1932,12 @@
 
     modal.addEventListener('click', e => {
       if (e.target.hasAttribute('data-close')) {
-        if (!stepForm.hidden && currentItem) {   // 이메일 없이 닫아도 클릭 자체는 수요 신호로 기록
-          markInterest(currentItem, null);
-          markButtonDone(currentBtn);
+        if (!stepForm.hidden && !hasEmailChoice()) {   // 이메일 없이 닫아도 선택 자체는 기록
+          saveEmailChoice('');
+          if (currentItem) {
+            markInterest(currentItem, null);
+            markButtonDone(currentBtn);
+          }
         }
         modal.hidden = true;
       }
@@ -1832,6 +1946,8 @@
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape' && !modal.hidden) modal.hidden = true;
     });
+
+    renderEmailStatus();
 
     // 히어로 벗어나면 nav 배경 전환 (클래스 토글 1회성이라 스크롤 리스너로 충분)
     const nav = document.querySelector('.nav');
@@ -1859,15 +1975,49 @@
       if (savedItems.has(btn.dataset.item)) markButtonDone(btn);
     });
 
-    // 좋아요 토글 (localStorage)
+    // 좋아요 토글 + 실시간 카운트 (Supabase likes 테이블)
     const likes = new Set(JSON.parse(localStorage.getItem('horong_likes') || '[]'));
-    document.querySelectorAll('.card__like').forEach(btn => {
+    const likeButtons = [...document.querySelectorAll('.card__like')].map(btn => {
       const item = btn.closest('.card').querySelector('.card__cta').dataset.item;
+      const countEl = btn.querySelector('[data-like-count]');
       if (likes.has(item)) btn.classList.add('is-liked');
+      return { btn, item, countEl };
+    });
+
+    fetch(SUPABASE_URL + '/rest/v1/likes?select=item,count', {
+      headers: { apikey: SUPABASE_KEY, Authorization: 'Bearer ' + SUPABASE_KEY }
+    })
+      .then(res => res.ok ? res.json() : [])
+      .then(rows => {
+        const counts = new Map(rows.map(r => [r.item, r.count]));
+        likeButtons.forEach(({ item, countEl }) => {
+          if (counts.has(item)) countEl.textContent = counts.get(item);
+        });
+      })
+      .catch(() => { });
+
+    likeButtons.forEach(({ btn, item, countEl }) => {
       btn.addEventListener('click', () => {
-        if (likes.has(item)) { likes.delete(item); btn.classList.remove('is-liked'); }
-        else { likes.add(item); btn.classList.add('is-liked'); }
+        const liking = !likes.has(item);
+        const delta = liking ? 1 : -1;
+
+        if (liking) { likes.add(item); btn.classList.add('is-liked'); }
+        else { likes.delete(item); btn.classList.remove('is-liked'); }
         localStorage.setItem('horong_likes', JSON.stringify([...likes]));
+        countEl.textContent = Math.max(0, (parseInt(countEl.textContent, 10) || 0) + delta);
+
+        fetch(SUPABASE_URL + '/rest/v1/rpc/increment_like', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            apikey: SUPABASE_KEY,
+            Authorization: 'Bearer ' + SUPABASE_KEY
+          },
+          body: JSON.stringify({ p_item: item, p_delta: delta })
+        })
+          .then(res => res.ok ? res.json() : null)
+          .then(newCount => { if (typeof newCount === 'number') countEl.textContent = newCount; })
+          .catch(() => { });
       });
     });
   </script>
