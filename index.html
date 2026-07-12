@@ -1,1586 +1,1877 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>HORONG · 포항의 이야기를 밝히는 작은 정령</title>
-<meta name="description" content="호미곶 첫 햇살에서 태어난 작은 정령, 호롱이를 만나보세요." />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
-<style>
-  :root {
-    --cream: #f6f1e7;
-    --ink: #2b241c;
-    --ink-soft: #6f6558;
-    --peach: #f59a6b;      /* 호롱이 볼터치 오렌지 */
-    --peach-deep: #e07a45;
-    --plush: #b9ada0;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HORONG · 포항의 이야기를 밝히는 작은 정령</title>
+  <meta name="description" content="호미곶 첫 햇살에서 태어난 작은 정령, 호롱이를 만나보세요." />
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <style>
+    :root {
+      --cream: #f6f1e7;
+      --ink: #2b241c;
+      --ink-soft: #6f6558;
+      --peach: #f59a6b;
+      /* 호롱이 볼터치 오렌지 */
+      --peach-deep: #e07a45;
+      --plush: #b9ada0;
+    }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  html { scroll-behavior: auto; }
+    html {
+      scroll-behavior: auto;
+    }
 
-  body {
-    font-family: "Pretendard Variable", Pretendard, -apple-system, sans-serif;
-    background: var(--cream);
-    color: var(--ink);
-    -webkit-font-smoothing: antialiased;
-  }
+    body {
+      font-family: "Pretendard Variable", Pretendard, -apple-system, sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
 
-  /* ── Nav ─────────────────────────── */
-  .nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 50;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 68px;
-    padding: 0 clamp(20px, 4vw, 48px);
-  }
-  .nav__logo {
-    font-weight: 800;
-    font-size: 20px;
-    letter-spacing: -0.02em;
-    color: #fff;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .nav__logo .spark {
-    width: 10px; height: 10px;
-    background: var(--peach);
-    border-radius: 50% 50% 50% 0;
-    transform: rotate(-45deg);
-    display: inline-block;
-  }
-  .nav__links {
-    display: flex;
-    gap: 28px;
-    list-style: none;
-  }
-  .nav__links a {
-    color: rgba(255,255,255,0.85);
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 600;
-    transition: color 0.2s;
-  }
-  .nav__links a:hover { color: #fff; }
-  /* 히어로 벗어나면 크림 배경 + 잉크 텍스트 */
-  .nav.is-solid {
-    background: rgba(246, 241, 231, 0.92);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-  .nav.is-solid .nav__logo { color: var(--ink); }
-  .nav.is-solid .nav__links a { color: var(--ink-soft); }
-  .nav.is-solid .nav__links a:hover { color: var(--ink); }
-  @media (max-width: 640px) {
-    .nav__links { display: none; }
-  }
+    /* ── Nav ─────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+      padding: 0 clamp(20px, 4vw, 48px);
+    }
 
-  /* ── Hero ─────────────────────────── */
-  .hero {
-    position: relative;
-    min-height: 100dvh;
-    overflow: hidden;
-    display: flex;
-    align-items: flex-end;
-  }
-  .hero__video {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 40%;
-  }
-  /* 하단 스크림: 텍스트 가독성 */
-  .hero__scrim {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      to top,
-      rgba(30, 22, 12, 0.72) 0%,
-      rgba(30, 22, 12, 0.28) 34%,
-      rgba(30, 22, 12, 0.0) 60%
-    );
-    pointer-events: none;
-  }
+    .nav__logo {
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-  .hero__content {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 clamp(20px, 4vw, 48px) clamp(40px, 7vh, 80px);
-  }
+    .nav__logo .spark {
+      width: 10px;
+      height: 10px;
+      background: var(--peach);
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      display: inline-block;
+    }
 
-  .hero__title {
-    font-weight: 900;
-    font-size: clamp(52px, 9vw, 128px);
-    line-height: 0.98;
-    letter-spacing: -0.03em;
-    color: #fff;
-  }
-  .hero__title .accent { color: var(--peach); }
+    .nav__links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
 
-  .hero__tagline {
-    margin-top: 18px;
-    font-size: clamp(17px, 2vw, 22px);
-    font-weight: 500;
-    color: rgba(255,255,255,0.88);
-    line-height: 1.5;
-  }
+    .nav__links a {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
 
-  .hero__cta-row {
-    margin-top: 32px;
-    display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
-  }
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 16px 32px;
-    border-radius: 999px;
-    font-size: 16px;
-    font-weight: 700;
-    text-decoration: none;
-    transition: transform 0.15s ease, background 0.2s, color 0.2s;
-    cursor: pointer;
-  }
-  .btn:active { transform: scale(0.98) translateY(1px); }
-  .btn--primary {
-    background: var(--peach);
-    color: #2b1a0e;
-  }
-  .btn--primary:hover { background: var(--peach-deep); color: #fff; }
-  .btn--ghost {
-    background: rgba(255,255,255,0.14);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.4);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-  .btn--ghost:hover { background: rgba(255,255,255,0.26); }
+    .nav__links a:hover {
+      color: #fff;
+    }
 
-  /* 진입 애니메이션 */
-  @media (prefers-reduced-motion: no-preference) {
-    .rise {
+    /* 히어로 벗어나면 크림 배경 + 잉크 텍스트 */
+    .nav.is-solid {
+      background: rgba(246, 241, 231, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .nav.is-solid .nav__logo {
+      color: var(--ink);
+    }
+
+    .nav.is-solid .nav__links a {
+      color: var(--ink-soft);
+    }
+
+    .nav.is-solid .nav__links a:hover {
+      color: var(--ink);
+    }
+
+    @media (max-width: 640px) {
+      .nav__links {
+        display: none;
+      }
+    }
+
+    /* ── Hero ─────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100dvh;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .hero__video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+    }
+
+    /* 하단 스크림: 텍스트 가독성 */
+    .hero__scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top,
+          rgba(30, 22, 12, 0.72) 0%,
+          rgba(30, 22, 12, 0.28) 34%,
+          rgba(30, 22, 12, 0.0) 60%);
+      pointer-events: none;
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 clamp(20px, 4vw, 48px) clamp(40px, 7vh, 80px);
+    }
+
+    .hero__title {
+      font-weight: 900;
+      font-size: clamp(52px, 9vw, 128px);
+      line-height: 0.98;
+      letter-spacing: -0.03em;
+      color: #fff;
+    }
+
+    .hero__title .accent {
+      color: var(--peach);
+    }
+
+    .hero__tagline {
+      margin-top: 18px;
+      font-size: clamp(17px, 2vw, 22px);
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.88);
+      line-height: 1.5;
+    }
+
+    .hero__cta-row {
+      margin-top: 32px;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 32px;
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.15s ease, background 0.2s, color 0.2s;
+      cursor: pointer;
+    }
+
+    .btn:active {
+      transform: scale(0.98) translateY(1px);
+    }
+
+    .btn--primary {
+      background: var(--peach);
+      color: #2b1a0e;
+    }
+
+    .btn--primary:hover {
+      background: var(--peach-deep);
+      color: #fff;
+    }
+
+    .btn--ghost {
+      background: rgba(255, 255, 255, 0.14);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .btn--ghost:hover {
+      background: rgba(255, 255, 255, 0.26);
+    }
+
+    /* 진입 애니메이션 */
+    @media (prefers-reduced-motion: no-preference) {
+      .rise {
+        opacity: 0;
+        transform: translateY(28px);
+        animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      .rise--1 {
+        animation-delay: 0.15s;
+      }
+
+      .rise--2 {
+        animation-delay: 0.3s;
+      }
+
+      .rise--3 {
+        animation-delay: 0.45s;
+      }
+
+      @keyframes rise {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    }
+
+    /* 비디오 로드 전 폴백 배경 */
+    .hero {
+      background: #d8cfc2;
+    }
+
+    /* ── Goods ─────────────────────────── */
+    .goods {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: clamp(80px, 12vh, 140px) clamp(20px, 4vw, 48px);
+    }
+
+    .goods__head {
+      max-width: 65ch;
+      margin-bottom: 48px;
+    }
+
+    .goods__title {
+      font-weight: 900;
+      font-size: clamp(34px, 5vw, 56px);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .goods__sub {
+      margin-top: 14px;
+      font-size: 17px;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+
+    .goods__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 1024px) {
+      .goods__grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .goods__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(89, 72, 50, 0.14);
+    }
+
+    .card__img-wrap {
+      aspect-ratio: 1 / 1;
+      min-height: 0;
+      overflow: hidden;
+      background: #fbf8f3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    .card__img-wrap img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .card__body {
+      padding: 16px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .card__head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .card__name {
+      font-weight: 700;
+      font-size: 17px;
+    }
+
+    .card__like {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border: none;
+      border-radius: 50%;
+      background: #f1ebe0;
+      color: var(--ink-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.15s, background 0.2s, color 0.2s;
+    }
+
+    .card__like:hover {
+      background: #e9e1d2;
+    }
+
+    .card__like:active {
+      transform: scale(0.9);
+    }
+
+    .card__like svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .card__like.is-liked {
+      background: #fdeae1;
+      color: var(--peach-deep);
+    }
+
+    .card__like.is-liked svg {
+      fill: currentColor;
+    }
+
+    .card__cta {
+      margin-top: auto;
+      width: 100%;
+      padding: 12px 0;
+      border: none;
+      border-radius: 999px;
+      background: var(--peach);
+      color: #2b1a0e;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, transform 0.15s;
+    }
+
+    .card__cta:hover {
+      background: var(--peach-deep);
+      color: #fff;
+    }
+
+    .card__cta:active {
+      transform: scale(0.98);
+    }
+
+    .card__cta.is-done {
+      background: #efe9df;
+      color: var(--ink-soft);
+      cursor: default;
+    }
+
+    /* ── SNS ─────────────────────────── */
+    .sns {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: clamp(80px, 12vh, 140px) clamp(20px, 4vw, 48px);
+    }
+
+    .sns__head {
+      max-width: 65ch;
+      margin-bottom: 48px;
+    }
+
+    .sns__title {
+      font-weight: 900;
+      font-size: clamp(34px, 5vw, 56px);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .sns__sub {
+      margin-top: 14px;
+      font-size: clamp(15px, 1.6vw, 17px);
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+
+    .sns__grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: clamp(20px, 3vw, 28px);
+      align-items: start;
+    }
+
+    @media (max-width: 860px) {
+      .sns__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .sns__video-card {
+      position: relative;
+      display: block;
+      border-radius: 28px;
+      overflow: hidden;
+      aspect-ratio: 4 / 5;
+      text-decoration: none;
+    }
+
+    .sns__video-card video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .sns__video-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(20, 14, 8, 0.75) 100%);
+    }
+
+    .sns__video-tag {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: absolute;
+      left: 24px;
+      bottom: 24px;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .sns__video-tag svg {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+    }
+
+    .sns__video-tag span {
+      font-size: 15px;
+    }
+
+    .sns__video-tag small {
+      display: block;
+      font-weight: 500;
+      opacity: 0.75;
+      font-size: 12px;
+    }
+
+    .sns__gallery-card {
+      background: #fff;
+      border-radius: 28px;
+      padding: clamp(20px, 3vw, 28px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sns__gallery-card img {
+      width: 100%;
+      border-radius: 16px;
+      background: #fbf8f3;
+    }
+
+    .sns__cta {
+      margin-top: 20px;
+      align-self: flex-start;
+    }
+
+    /* ── Modal ─────────────────────────── */
+    .modal[hidden] {
+      display: none;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal__backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(30, 22, 12, 0.5);
+    }
+
+    .modal__panel {
+      position: relative;
+      background: #fff;
+      border-radius: 24px;
+      padding: 32px 28px 28px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.25);
+    }
+
+    .modal__title {
+      font-weight: 800;
+      font-size: 22px;
+      letter-spacing: -0.02em;
+    }
+
+    .modal__desc {
+      margin-top: 10px;
+      font-size: 15px;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+
+    .modal__form {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .modal__label {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .modal__input {
+      padding: 13px 16px;
+      border: 1.5px solid #ddd3c4;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 15px;
+      color: var(--ink);
+      background: #fdfbf7;
+    }
+
+    .modal__input:focus {
+      outline: 2px solid var(--peach);
+      outline-offset: 1px;
+      border-color: var(--peach);
+    }
+
+    .modal__submit {
+      margin-top: 8px;
+      padding: 14px 0;
+      border: none;
+      border-radius: 999px;
+      background: var(--peach);
+      color: #2b1a0e;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .modal__submit:hover {
+      background: var(--peach-deep);
+      color: #fff;
+    }
+
+    .modal__skip {
+      margin-top: 4px;
+      background: none;
+      border: none;
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--ink-soft);
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .modal__close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
+      border: none;
+      border-radius: 50%;
+      background: #f1ebe0;
+      color: var(--ink-soft);
+      font-size: 16px;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .modal__done {
+      text-align: center;
+      padding: 12px 0 4px;
+    }
+
+    .modal__done-mark {
+      width: 52px;
+      height: 52px;
+      margin: 0 auto 14px;
+      border-radius: 50%;
+      background: var(--peach);
+      color: #fff;
+      font-size: 26px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── Story Modal ─────────────────────────── */
+    .story-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: #0d0907;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       opacity: 0;
-      transform: translateY(28px);
-      animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      pointer-events: none;
+      transition: opacity 0.6s ease;
+      overflow: hidden;
     }
-    .rise--1 { animation-delay: 0.15s; }
-    .rise--2 { animation-delay: 0.3s; }
-    .rise--3 { animation-delay: 0.45s; }
-    @keyframes rise {
-      to { opacity: 1; transform: translateY(0); }
+
+    .story-modal.is-open {
+      opacity: 1;
+      pointer-events: all;
     }
-  }
 
-  /* 비디오 로드 전 폴백 배경 */
-  .hero { background: #d8cfc2; }
+    /* 배경 그라데이션 광원 */
+    .story-modal__glow {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 60%, rgba(245, 154, 107, 0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 30% 80%, rgba(245, 154, 107, 0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
 
-  /* ── Goods ─────────────────────────── */
-  .goods {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: clamp(80px, 12vh, 140px) clamp(20px, 4vw, 48px);
-  }
-  .goods__head {
-    max-width: 65ch;
-    margin-bottom: 48px;
-  }
-  .goods__title {
-    font-weight: 900;
-    font-size: clamp(34px, 5vw, 56px);
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-  }
-  .goods__sub {
-    margin-top: 14px;
-    font-size: 17px;
-    color: var(--ink-soft);
-    line-height: 1.6;
-  }
-  .goods__grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-  }
-  @media (max-width: 1024px) { .goods__grid { grid-template-columns: repeat(3, 1fr); } }
-  @media (max-width: 768px)  { .goods__grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
+    /* 닫기 버튼 */
+    .story-modal__close {
+      position: absolute;
+      top: 28px;
+      right: 28px;
+      width: 44px;
+      height: 44px;
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      backdrop-filter: blur(8px);
+    }
 
-  .card {
-    background: #fff;
-    border-radius: 20px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.2s cubic-bezier(0.16,1,0.3,1), box-shadow 0.2s;
-  }
-  .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 40px rgba(89, 72, 50, 0.14);
-  }
-  .card__img-wrap {
-    aspect-ratio: 1 / 1;
-    min-height: 0;
-    overflow: hidden;
-    background: #fbf8f3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 18px;
-  }
-  .card__img-wrap img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-  }
+    .story-modal__close:hover {
+      background: rgba(255, 255, 255, 0.14);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.4);
+    }
 
-  .card__body {
-    padding: 16px 18px 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    flex: 1;
-  }
-  .card__head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-  }
-  .card__name {
-    font-weight: 700;
-    font-size: 17px;
-  }
-  .card__like {
-    flex-shrink: 0;
-    width: 36px;
-    height: 36px;
-    border: none;
-    border-radius: 50%;
-    background: #f1ebe0;
-    color: var(--ink-soft);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: transform 0.15s, background 0.2s, color 0.2s;
-  }
-  .card__like:hover { background: #e9e1d2; }
-  .card__like:active { transform: scale(0.9); }
-  .card__like svg { width: 18px; height: 18px; }
-  .card__like.is-liked {
-    background: #fdeae1;
-    color: var(--peach-deep);
-  }
-  .card__like.is-liked svg { fill: currentColor; }
-  .card__cta {
-    margin-top: auto;
-    width: 100%;
-    padding: 12px 0;
-    border: none;
-    border-radius: 999px;
-    background: var(--peach);
-    color: #2b1a0e;
-    font-family: inherit;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.2s, color 0.2s, transform 0.15s;
-  }
-  .card__cta:hover { background: var(--peach-deep); color: #fff; }
-  .card__cta:active { transform: scale(0.98); }
-  .card__cta.is-done {
-    background: #efe9df;
-    color: var(--ink-soft);
-    cursor: default;
-  }
+    /* 진행 바 */
+    .story-modal__progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--peach), var(--peach-deep));
+      transition: width 0.4s ease;
+      z-index: 10;
+    }
 
-  /* ── SNS ─────────────────────────── */
-  .sns {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: clamp(80px, 12vh, 140px) clamp(20px, 4vw, 48px);
-  }
-  .sns__head {
-    max-width: 65ch;
-    margin-bottom: 48px;
-  }
-  .sns__title {
-    font-weight: 900;
-    font-size: clamp(34px, 5vw, 56px);
-    letter-spacing: -0.03em;
-    line-height: 1.1;
-  }
-  .sns__sub {
-    margin-top: 14px;
-    font-size: clamp(15px, 1.6vw, 17px);
-    color: var(--ink-soft);
-    line-height: 1.6;
-  }
-  .sns__grid {
-    display: grid;
-    grid-template-columns: 1.1fr 1fr;
-    gap: clamp(20px, 3vw, 28px);
-    align-items: start;
-  }
-  @media (max-width: 860px) { .sns__grid { grid-template-columns: 1fr; } }
+    /* 씬 컨테이너 */
+    .story-modal__stage {
+      position: relative;
+      z-index: 5;
+      width: 100%;
+      max-width: 680px;
+      padding: clamp(40px, 8vw, 80px) clamp(24px, 5vw, 60px);
+      text-align: center;
+      cursor: pointer;
+      -webkit-user-select: none;
+      user-select: none;
+    }
 
-  .sns__video-card {
-    position: relative;
-    display: block;
-    border-radius: 28px;
-    overflow: hidden;
-    aspect-ratio: 4 / 5;
-    text-decoration: none;
-  }
-  .sns__video-card video {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .sns__video-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(20,14,8,0.75) 100%);
-  }
-  .sns__video-tag {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    position: absolute;
-    left: 24px;
-    bottom: 24px;
-    color: #fff;
-    font-weight: 700;
-  }
-  .sns__video-tag svg { width: 22px; height: 22px; flex-shrink: 0; }
-  .sns__video-tag span { font-size: 15px; }
-  .sns__video-tag small { display: block; font-weight: 500; opacity: 0.75; font-size: 12px; }
+    /* 씬 공통 */
+    .story-scene {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
 
-  .sns__gallery-card {
-    background: #fff;
-    border-radius: 28px;
-    padding: clamp(20px, 3vw, 28px);
-    display: flex;
-    flex-direction: column;
-  }
-  .sns__gallery-card img {
-    width: 100%;
-    border-radius: 16px;
-    background: #fbf8f3;
-  }
-  .sns__cta {
-    margin-top: 20px;
-    align-self: flex-start;
-  }
+    .story-scene.is-active {
+      display: flex;
+      animation: sceneFadeIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
 
-  /* ── Modal ─────────────────────────── */
-  .modal[hidden] { display: none; }
-  .modal {
-    position: fixed;
-    inset: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-  }
-  .modal__backdrop {
-    position: absolute;
-    inset: 0;
-    background: rgba(30, 22, 12, 0.5);
-  }
-  .modal__panel {
-    position: relative;
-    background: #fff;
-    border-radius: 24px;
-    padding: 32px 28px 28px;
-    width: 100%;
-    max-width: 400px;
-    box-shadow: 0 24px 80px rgba(0,0,0,0.25);
-  }
-  .modal__title {
-    font-weight: 800;
-    font-size: 22px;
-    letter-spacing: -0.02em;
-  }
-  .modal__desc {
-    margin-top: 10px;
-    font-size: 15px;
-    color: var(--ink-soft);
-    line-height: 1.6;
-  }
-  .modal__form {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .modal__label {
-    font-size: 14px;
-    font-weight: 600;
-  }
-  .modal__input {
-    padding: 13px 16px;
-    border: 1.5px solid #ddd3c4;
-    border-radius: 12px;
-    font-family: inherit;
-    font-size: 15px;
-    color: var(--ink);
-    background: #fdfbf7;
-  }
-  .modal__input:focus {
-    outline: 2px solid var(--peach);
-    outline-offset: 1px;
-    border-color: var(--peach);
-  }
-  .modal__submit {
-    margin-top: 8px;
-    padding: 14px 0;
-    border: none;
-    border-radius: 999px;
-    background: var(--peach);
-    color: #2b1a0e;
-    font-family: inherit;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-  }
-  .modal__submit:hover { background: var(--peach-deep); color: #fff; }
-  .modal__skip {
-    margin-top: 4px;
-    background: none;
-    border: none;
-    font-family: inherit;
-    font-size: 14px;
-    color: var(--ink-soft);
-    cursor: pointer;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-  .modal__close {
-    position: absolute;
-    top: 16px; right: 16px;
-    width: 32px; height: 32px;
-    border: none;
-    border-radius: 50%;
-    background: #f1ebe0;
-    color: var(--ink-soft);
-    font-size: 16px;
-    cursor: pointer;
-    line-height: 1;
-  }
-  .modal__done {
-    text-align: center;
-    padding: 12px 0 4px;
-  }
-  .modal__done-mark {
-    width: 52px; height: 52px;
-    margin: 0 auto 14px;
-    border-radius: 50%;
-    background: var(--peach);
-    color: #fff;
-    font-size: 26px;
-    font-weight: 800;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+    .story-scene.is-exit {
+      animation: sceneFadeOut 0.4s ease forwards;
+    }
 
-  /* ── Story Modal ─────────────────────────── */
-  .story-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 200;
-    background: #0d0907;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.6s ease;
-    overflow: hidden;
-  }
-  .story-modal.is-open {
-    opacity: 1;
-    pointer-events: all;
-  }
+    @keyframes sceneFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
 
-  /* 배경 그라데이션 광원 */
-  .story-modal__glow {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 60% 50% at 50% 60%, rgba(245,154,107,0.12) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 30% at 30% 80%, rgba(245,154,107,0.06) 0%, transparent 60%);
-    pointer-events: none;
-  }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-  /* 닫기 버튼 */
-  .story-modal__close {
-    position: absolute;
-    top: 28px;
-    right: 28px;
-    width: 44px;
-    height: 44px;
-    border: 1.5px solid rgba(255,255,255,0.2);
-    border-radius: 50%;
-    background: rgba(255,255,255,0.06);
-    color: rgba(255,255,255,0.7);
-    font-size: 18px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-    transition: background 0.2s, color 0.2s, border-color 0.2s;
-    backdrop-filter: blur(8px);
-  }
-  .story-modal__close:hover {
-    background: rgba(255,255,255,0.14);
-    color: #fff;
-    border-color: rgba(255,255,255,0.4);
-  }
+    @keyframes sceneFadeOut {
+      to {
+        opacity: 0;
+        transform: translateY(-14px);
+      }
+    }
 
-  /* 진행 바 */
-  .story-modal__progress {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--peach), var(--peach-deep));
-    transition: width 0.4s ease;
-    z-index: 10;
-  }
+    /* 인용 태그 */
+    .story-scene__quote {
+      font-size: clamp(11px, 1.4vw, 14px);
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--peach);
+      margin-bottom: 26px;
+      opacity: 0.85;
+    }
 
-  /* 씬 컨테이너 */
-  .story-modal__stage {
-    position: relative;
-    z-index: 5;
-    width: 100%;
-    max-width: 680px;
-    padding: clamp(40px, 8vw, 80px) clamp(24px, 5vw, 60px);
-    text-align: center;
-    cursor: pointer;
-    -webkit-user-select: none;
-    user-select: none;
-  }
+    /* 본문 텍스트 */
+    .story-scene__text {
+      font-size: clamp(22px, 3.5vw, 36px);
+      font-weight: 700;
+      line-height: 1.65;
+      letter-spacing: -0.01em;
+      color: rgba(255, 255, 255, 0.92);
+    }
 
-  /* 씬 공통 */
-  .story-scene {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
-  }
-  .story-scene.is-active {
-    display: flex;
-    animation: sceneFadeIn 0.9s cubic-bezier(0.16,1,0.3,1) both;
-  }
-  .story-scene.is-exit {
-    animation: sceneFadeOut 0.4s ease forwards;
-  }
-  @keyframes sceneFadeIn {
-    from { opacity: 0; transform: translateY(18px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes sceneFadeOut {
-    to { opacity: 0; transform: translateY(-14px); }
-  }
+    .story-scene__text em {
+      font-style: normal;
+      color: var(--peach);
+    }
 
-  /* 인용 태그 */
-  .story-scene__quote {
-    font-size: clamp(11px, 1.4vw, 14px);
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--peach);
-    margin-bottom: 26px;
-    opacity: 0.85;
-  }
+    .story-scene__text .soft {
+      color: rgba(255, 255, 255, 0.55);
+      font-weight: 500;
+      font-size: 0.82em;
+    }
 
-  /* 본문 텍스트 */
-  .story-scene__text {
-    font-size: clamp(22px, 3.5vw, 36px);
-    font-weight: 700;
-    line-height: 1.65;
-    letter-spacing: -0.01em;
-    color: rgba(255,255,255,0.92);
-  }
-  .story-scene__text em {
-    font-style: normal;
-    color: var(--peach);
-  }
-  .story-scene__text .soft {
-    color: rgba(255,255,255,0.55);
-    font-weight: 500;
-    font-size: 0.82em;
-  }
+    /* 구분 줄 */
+    .story-divider {
+      width: 32px;
+      height: 2px;
+      background: rgba(245, 154, 107, 0.4);
+      border-radius: 2px;
+      margin: 28px auto;
+    }
 
-  /* 구분 줄 */
-  .story-divider {
-    width: 32px;
-    height: 2px;
-    background: rgba(245,154,107,0.4);
-    border-radius: 2px;
-    margin: 28px auto;
-  }
+    /* 호롱이 대사 씬 - 케릭터 등장 버전 */
+    .story-scene--chat {
+      gap: 0;
+      align-items: flex-start;
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto;
+    }
 
-  /* 호롱이 대사 씬 - 케릭터 등장 버전 */
-  .story-scene--chat {
-    gap: 0;
-    align-items: flex-start;
-    width: 100%;
-    max-width: 520px;
-    margin: 0 auto;
-  }
-  .story-chat__character {
-    display: flex;
-    align-items: flex-end;
-    gap: 14px;
-    width: 100%;
-    margin-bottom: 18px;
-  }
-  .story-chat__avatar {
-    flex-shrink: 0;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    overflow: hidden;
-    background: rgba(245,154,107,0.12);
-    border: 2px solid rgba(245,154,107,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: avatarBounceIn 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
-  }
-  .story-chat__avatar img {
-    width: 110%;
-    height: 110%;
-    object-fit: cover;
-    object-position: center 10%;
-    margin-top: 8px;
-  }
-  @keyframes avatarBounceIn {
-    from { opacity: 0; transform: scale(0.5) translateY(20px); }
-    to   { opacity: 1; transform: scale(1) translateY(0); }
-  }
-  .story-chat__name {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    color: var(--peach);
-    margin-bottom: 6px;
-  }
-  .story-chat__bubbles {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .story-bubble {
-    background: rgba(245,154,107,0.13);
-    border: 1px solid rgba(245,154,107,0.25);
-    border-radius: 18px 18px 18px 4px;
-    padding: 13px 18px;
-    color: rgba(255,255,255,0.92);
-    font-size: clamp(16px, 2.4vw, 22px);
-    font-weight: 600;
-    line-height: 1.5;
-    text-align: left;
-    opacity: 0;
-    animation: bubblePop 0.45s cubic-bezier(0.34,1.56,0.64,1) forwards;
-  }
-  .story-bubble:nth-child(1) { animation-delay: 0.35s; }
-  .story-bubble:nth-child(2) { animation-delay: 0.85s; }
-  .story-bubble:nth-child(3) { animation-delay: 1.4s; }
-  @keyframes bubblePop {
-    from { opacity: 0; transform: scale(0.9) translateX(-6px); }
-    to   { opacity: 1; transform: scale(1) translateX(0); }
-  }
+    .story-chat__character {
+      display: flex;
+      align-items: flex-end;
+      gap: 14px;
+      width: 100%;
+      margin-bottom: 18px;
+    }
 
-  /* 캐릭터 이름 마무리 */
-  .story-scene__name {
-    font-size: clamp(44px, 8vw, 90px);
-    font-weight: 900;
-    letter-spacing: -0.04em;
-    color: #fff;
-    line-height: 1;
-  }
-  .story-scene__name .dot {
-    color: var(--peach);
-  }
+    .story-chat__avatar {
+      flex-shrink: 0;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: rgba(245, 154, 107, 0.12);
+      border: 2px solid rgba(245, 154, 107, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: avatarBounceIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
 
-  /* 엔딩 씬 */
-  .story-scene--ending {
-    gap: 0;
-  }
-  .story-scene--ending .story-scene__text {
-    font-size: clamp(17px, 2.6vw, 26px);
-    font-weight: 500;
-    color: rgba(255,255,255,0.7);
-    line-height: 1.8;
-    letter-spacing: 0;
-  }
-  .story-scene--ending .story-scene__text em {
-    font-size: clamp(20px, 3vw, 30px);
-    font-weight: 800;
-    color: #fff;
-    display: block;
-    margin-top: 6px;
-  }
-  .story-btn-journey {
-    margin-top: 40px;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 18px 40px;
-    border-radius: 999px;
-    background: var(--peach);
-    color: #2b1a0e;
-    font-family: inherit;
-    font-size: 17px;
-    font-weight: 800;
-    border: none;
-    cursor: pointer;
-    letter-spacing: -0.01em;
-    transition: background 0.2s, color 0.2s, transform 0.18s, box-shadow 0.2s;
-    box-shadow: 0 8px 32px rgba(245,154,107,0.35);
-    animation: journeyPulse 2.8s ease-in-out infinite 1.2s;
-  }
-  .story-btn-journey:hover {
-    background: var(--peach-deep);
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 14px 40px rgba(245,154,107,0.5);
-  }
-  .story-btn-journey:active { transform: scale(0.97); }
-  @keyframes journeyPulse {
-    0%, 100% { box-shadow: 0 8px 32px rgba(245,154,107,0.35); }
-    50% { box-shadow: 0 8px 48px rgba(245,154,107,0.6); }
-  }
-  .story-btn-journey svg {
-    width: 18px; height: 18px;
-    transition: transform 0.2s;
-  }
-  .story-btn-journey:hover svg { transform: translateX(4px); }
+    .story-chat__avatar img {
+      width: 110%;
+      height: 110%;
+      object-fit: cover;
+      object-position: center 10%;
+      margin-top: 8px;
+    }
 
-  /* 다음 힌트 */
-  .story-modal__hint {
-    position: absolute;
-    bottom: 36px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 13px;
-    color: rgba(255,255,255,0.3);
-    letter-spacing: 0.1em;
-    pointer-events: none;
-    animation: hintPulse 2.2s ease-in-out infinite;
-  }
-  @keyframes hintPulse {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 0.7; }
-  }
-  .story-modal__hint.is-last { display: none; }
+    @keyframes avatarBounceIn {
+      from {
+        opacity: 0;
+        transform: scale(0.5) translateY(20px);
+      }
 
-  /* 스토리 섹션 엔트리 카드 */
-  #story {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 clamp(20px, 4vw, 48px);
-  }
-  .story-entry {
-    display: flex;
-    align-items: center;
-    gap: clamp(24px, 4vw, 56px);
-    background: linear-gradient(135deg, #1e160c 0%, #2e2018 100%);
-    border-radius: 28px;
-    padding: clamp(36px, 6vw, 64px) clamp(28px, 5vw, 56px);
-    cursor: pointer;
-    transition: transform 0.2s cubic-bezier(0.16,1,0.3,1), box-shadow 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-  .story-entry::before {
-    content: '';
-    position: absolute;
-    top: -40%;
-    right: -10%;
-    width: 320px;
-    height: 320px;
-    background: radial-gradient(circle, rgba(245,154,107,0.14) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .story-entry:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 24px 64px rgba(0,0,0,0.35);
-  }
-  .story-entry__icon {
-    flex-shrink: 0;
-    width: clamp(56px, 8vw, 80px);
-    height: clamp(56px, 8vw, 80px);
-    border-radius: 50%;
-    background: rgba(245,154,107,0.15);
-    border: 1.5px solid rgba(245,154,107,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    font-size: clamp(24px, 3.5vw, 36px);
-    transition: background 0.2s;
-  }
-  .story-entry__icon img {
-    width: 82%;
-    height: 82%;
-    object-fit: contain;
-  }
-  .story-entry:hover .story-entry__icon {
-    background: rgba(245,154,107,0.25);
-  }
-  .story-entry__body { flex: 1; }
-  .story-entry__label {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    color: var(--peach);
-    margin-bottom: 10px;
-  }
-  .story-entry__title {
-    font-size: clamp(22px, 3.5vw, 36px);
-    font-weight: 800;
-    letter-spacing: -0.025em;
-    color: #fff;
-    line-height: 1.2;
-    margin-bottom: 12px;
-  }
-  .story-entry__desc {
-    font-size: clamp(14px, 1.8vw, 17px);
-    color: rgba(255,255,255,0.5);
-    line-height: 1.6;
-  }
-  .story-entry__arrow {
-    flex-shrink: 0;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: 1.5px solid rgba(255,255,255,0.18);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgba(255,255,255,0.5);
-    transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
-  }
-  .story-entry:hover .story-entry__arrow {
-    background: var(--peach);
-    border-color: var(--peach);
-    color: #2b1a0e;
-    transform: translateX(3px);
-  }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
 
-  /* 탄생 스토리 + 이름의 의미, 나란히 */
-  .story-section {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(20px, 3vw, 28px);
-    align-items: stretch;
-  }
-  .story-meaning {
-    background: #fff;
-    border-radius: 28px;
-    padding: clamp(32px, 5vw, 56px);
-    display: flex;
-    flex-direction: column;
-  }
-  .story-meaning__title {
-    font-size: clamp(22px, 3vw, 32px);
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-    margin-bottom: 20px;
-  }
-  .story-meaning__equation {
-    display: inline-block;
-    align-self: flex-start;
-    background: var(--cream);
-    border: 1px solid #ece4d4;
-    border-radius: 999px;
-    padding: 9px 20px;
-    font-weight: 700;
-    font-size: 14px;
-    color: var(--peach-deep);
-    margin-bottom: 28px;
-  }
-  .story-meaning__list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  .story-meaning__item h4 {
-    font-size: 16px;
-    font-weight: 800;
-    color: var(--ink);
-    margin-bottom: 4px;
-  }
-  .story-meaning__item p {
-    font-size: 14px;
-    color: var(--ink-soft);
-    line-height: 1.6;
-  }
-  .story-meaning__divider {
-    height: 1px;
-    background: #ece4d4;
-    margin: 28px 0;
-  }
-  .story-meaning__promise {
-    margin-top: auto;
-    background: var(--cream);
-    border-radius: 16px;
-    padding: 22px 24px;
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--ink);
-    line-height: 1.6;
-  }
+    .story-chat__name {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--peach);
+      margin-bottom: 6px;
+    }
 
-  @media (max-width: 560px) {
-    .story-entry { flex-direction: column; text-align: center; }
-    .story-entry__arrow { display: none; }
-  }
-  @media (max-width: 860px) {
-    .story-section { grid-template-columns: 1fr; }
-  }
-</style>
+    .story-chat__bubbles {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .story-bubble {
+      background: rgba(245, 154, 107, 0.13);
+      border: 1px solid rgba(245, 154, 107, 0.25);
+      border-radius: 18px 18px 18px 4px;
+      padding: 13px 18px;
+      color: rgba(255, 255, 255, 0.92);
+      font-size: clamp(16px, 2.4vw, 22px);
+      font-weight: 600;
+      line-height: 1.5;
+      text-align: left;
+      opacity: 0;
+      animation: bubblePop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    .story-bubble:nth-child(1) {
+      animation-delay: 0.35s;
+    }
+
+    .story-bubble:nth-child(2) {
+      animation-delay: 0.85s;
+    }
+
+    .story-bubble:nth-child(3) {
+      animation-delay: 1.4s;
+    }
+
+    @keyframes bubblePop {
+      from {
+        opacity: 0;
+        transform: scale(0.9) translateX(-6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateX(0);
+      }
+    }
+
+    /* 캐릭터 이름 마무리 */
+    .story-scene__name {
+      font-size: clamp(44px, 8vw, 90px);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .story-scene__name .dot {
+      color: var(--peach);
+    }
+
+    /* 엔딩 씬 */
+    .story-scene--ending {
+      gap: 0;
+    }
+
+    .story-scene--ending .story-scene__text {
+      font-size: clamp(17px, 2.6vw, 26px);
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.8;
+      letter-spacing: 0;
+    }
+
+    .story-scene--ending .story-scene__text em {
+      font-size: clamp(20px, 3vw, 30px);
+      font-weight: 800;
+      color: #fff;
+      display: block;
+      margin-top: 6px;
+    }
+
+    .story-btn-journey {
+      margin-top: 40px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 18px 40px;
+      border-radius: 999px;
+      background: var(--peach);
+      color: #2b1a0e;
+      font-family: inherit;
+      font-size: 17px;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      letter-spacing: -0.01em;
+      transition: background 0.2s, color 0.2s, transform 0.18s, box-shadow 0.2s;
+      box-shadow: 0 8px 32px rgba(245, 154, 107, 0.35);
+      animation: journeyPulse 2.8s ease-in-out infinite 1.2s;
+    }
+
+    .story-btn-journey:hover {
+      background: var(--peach-deep);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 14px 40px rgba(245, 154, 107, 0.5);
+    }
+
+    .story-btn-journey:active {
+      transform: scale(0.97);
+    }
+
+    @keyframes journeyPulse {
+
+      0%,
+      100% {
+        box-shadow: 0 8px 32px rgba(245, 154, 107, 0.35);
+      }
+
+      50% {
+        box-shadow: 0 8px 48px rgba(245, 154, 107, 0.6);
+      }
+    }
+
+    .story-btn-journey svg {
+      width: 18px;
+      height: 18px;
+      transition: transform 0.2s;
+    }
+
+    .story-btn-journey:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* 다음 힌트 */
+    .story-modal__hint {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.3);
+      letter-spacing: 0.1em;
+      pointer-events: none;
+      animation: hintPulse 2.2s ease-in-out infinite;
+    }
+
+    @keyframes hintPulse {
+
+      0%,
+      100% {
+        opacity: 0.3;
+      }
+
+      50% {
+        opacity: 0.7;
+      }
+    }
+
+    .story-modal__hint.is-last {
+      display: none;
+    }
+
+    /* 스토리 섹션 엔트리 카드 */
+    #story {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 clamp(20px, 4vw, 48px);
+    }
+
+    .story-entry {
+      display: flex;
+      align-items: center;
+      gap: clamp(24px, 4vw, 56px);
+      background: linear-gradient(135deg, #1e160c 0%, #2e2018 100%);
+      border-radius: 28px;
+      padding: clamp(36px, 6vw, 64px) clamp(28px, 5vw, 56px);
+      cursor: pointer;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .story-entry::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      right: -10%;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(245, 154, 107, 0.14) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .story-entry:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+    }
+
+    .story-entry__icon {
+      flex-shrink: 0;
+      width: clamp(56px, 8vw, 80px);
+      height: clamp(56px, 8vw, 80px);
+      border-radius: 50%;
+      background: rgba(245, 154, 107, 0.15);
+      border: 1.5px solid rgba(245, 154, 107, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-size: clamp(24px, 3.5vw, 36px);
+      transition: background 0.2s;
+    }
+
+    .story-entry__icon img {
+      width: 82%;
+      height: 82%;
+      object-fit: contain;
+    }
+
+    .story-entry:hover .story-entry__icon {
+      background: rgba(245, 154, 107, 0.25);
+    }
+
+    .story-entry__body {
+      flex: 1;
+    }
+
+    .story-entry__label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--peach);
+      margin-bottom: 10px;
+    }
+
+    .story-entry__title {
+      font-size: clamp(22px, 3.5vw, 36px);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .story-entry__desc {
+      font-size: clamp(14px, 1.8vw, 17px);
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 1.6;
+    }
+
+    .story-entry__arrow {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.5);
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+
+    .story-entry:hover .story-entry__arrow {
+      background: var(--peach);
+      border-color: var(--peach);
+      color: #2b1a0e;
+      transform: translateX(3px);
+    }
+
+    /* 탄생 스토리 + 이름의 의미, 나란히 */
+    .story-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(20px, 3vw, 28px);
+      align-items: stretch;
+    }
+
+    .story-meaning {
+      background: #fff;
+      border-radius: 28px;
+      padding: clamp(32px, 5vw, 56px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .story-meaning__title {
+      font-size: clamp(22px, 3vw, 32px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 20px;
+    }
+
+    .story-meaning__equation {
+      display: inline-block;
+      align-self: flex-start;
+      background: var(--cream);
+      border: 1px solid #ece4d4;
+      border-radius: 999px;
+      padding: 9px 20px;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--peach-deep);
+      margin-bottom: 28px;
+    }
+
+    .story-meaning__list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .story-meaning__item h4 {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .story-meaning__item p {
+      font-size: 14px;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+
+    .story-meaning__divider {
+      height: 1px;
+      background: #ece4d4;
+      margin: 28px 0;
+    }
+
+    .story-meaning__promise {
+      margin-top: auto;
+      background: var(--cream);
+      border-radius: 16px;
+      padding: 22px 24px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 560px) {
+      .story-entry {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .story-entry__arrow {
+        display: none;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .story-section {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<nav class="nav">
-  <a href="#" class="nav__logo"><span class="spark"></span>HORONG</a>
-  <ul class="nav__links">
-    <li><a href="#story">스토리</a></li>
-    <li><a href="#goods">굿즈</a></li>
-    <li><a href="#sns">SNS</a></li>
-  </ul>
-</nav>
+  <nav class="nav">
+    <a href="#" class="nav__logo"><span class="spark"></span>HORONG</a>
+    <ul class="nav__links">
+      <li><a href="#story">스토리</a></li>
+      <li><a href="#goods">굿즈</a></li>
+      <li><a href="#sns">SNS</a></li>
+    </ul>
+  </nav>
 
-<header class="hero">
-  <video class="hero__video" autoplay muted loop playsinline poster="horong_e.png">
-    <source src="horong_birth.mp4" type="video/mp4" />
-  </video>
-  <div class="hero__scrim"></div>
+  <header class="hero">
+    <video class="hero__video" autoplay muted loop playsinline poster="horong_e.png">
+      <source src="horong_birth.mp4" type="video/mp4" />
+    </video>
+    <div class="hero__scrim"></div>
 
-  <div class="hero__content">
-    <h1 class="hero__title rise rise--1">
-      포항의 이야기를<br />밝히는 <span class="accent">작은 정령</span>
-    </h1>
-    <p class="hero__tagline rise rise--2">
-      빛을 받아 태어난 작은 정령이 포항 곳곳을 여행하며<br />
-      숨겨진 이야기와 사람들의 따뜻한 마음을 모아 밝게 비춰줍니다.
-    </p>
-    <div class="hero__cta-row rise rise--3">
-      <a href="#goods" class="btn btn--primary">굿즈 보기</a>
-      <a href="#story" class="btn btn--ghost">호롱이 만나기</a>
-    </div>
-  </div>
-</header>
-
-<!-- 스토리 섹션 -->
-<div id="story" style="padding: clamp(80px,12vh,140px) 0 0;">
-  <div class="story-section">
-    <button class="story-entry" id="story-open-btn" aria-haspopup="dialog" aria-label="호롱이 탄생 스토리 보기" style="height: 100%;">
-      <div class="story-entry__icon"><img src="horong_e.png" alt="" /></div>
-      <div class="story-entry__body">
-        <p class="story-entry__label">ORIGIN STORY</p>
-        <h2 class="story-entry__title">호롱이의 탄생</h2>
-        <p class="story-entry__desc">포항에서 가장 먼저 떠오르는 해에는<br />아무도 모르는 작은 비밀이 있습니다.</p>
-        <p style="margin-top: 24px; font-weight: 700; color: var(--peach);">스토리 감상하기 &rarr;</p>
-      </div>
-    </button>
-
-    <div class="story-meaning">
-      <h3 class="story-meaning__title">왜 '호롱'일까요?</h3>
-      <div class="story-meaning__equation">HORONG = 호미곶 + 호롱불</div>
-      
-      <ul class="story-meaning__list">
-        <li class="story-meaning__item">
-          <h4>호 (호미곶)</h4>
-          <p>포항에서 가장 먼저 해가 떠오르는 곳.</p>
-        </li>
-        <li class="story-meaning__item">
-          <h4>롱 (호롱불)</h4>
-          <p>희망과 따뜻함,<br/>그리고 사람들의 추억을 비추는 작은 불빛.</p>
-        </li>
-      </ul>
-
-      <div class="story-meaning__divider"></div>
-      
-      <h4 style="font-size: 18px; font-weight: 800; color: var(--ink); margin-bottom: 16px;">이름에 담긴 의미</h4>
-      <ul class="story-meaning__list" style="gap: 12px; margin-bottom: 32px;">
-        <li class="story-meaning__item" style="display: flex; align-items: center; gap: 8px;"><span style="font-size: 20px;">☀️</span> <p style="font-weight: 600; color: var(--ink);">첫 햇살</p></li>
-        <li class="story-meaning__item" style="display: flex; align-items: center; gap: 8px;"><span style="font-size: 20px;">🔥</span> <p style="font-weight: 600; color: var(--ink);">따뜻한 불빛</p></li>
-        <li class="story-meaning__item" style="display: flex; align-items: center; gap: 8px;"><span style="font-size: 20px;">🤍</span> <p style="font-weight: 600; color: var(--ink);">사람들의 이야기</p></li>
-        <li class="story-meaning__item" style="display: flex; align-items: center; gap: 8px;"><span style="font-size: 20px;">🌊</span> <p style="font-weight: 600; color: var(--ink);">포항의 여행</p></li>
-      </ul>
-
-      <div class="story-meaning__promise">
-        <span style="color: var(--peach); display: block; margin-bottom: 8px;">호롱이의 약속</span>
-        작은 이야기 하나도<br/>오래도록 빛날 수 있도록.
+    <div class="hero__content">
+      <h1 class="hero__title rise rise--1">
+        포항의 이야기를<br />밝히는 <span class="accent">작은 정령</span>
+      </h1>
+      <p class="hero__tagline rise rise--2">
+        빛을 받아 태어난 작은 정령이 포항 곳곳을 여행하며<br />
+        숨겨진 이야기와 사람들의 따뜻한 마음을 모아 밝게 비춰줍니다.
+      </p>
+      <div class="hero__cta-row rise rise--3">
+        <a href="#goods" class="btn btn--primary">굿즈 보기</a>
+        <a href="#story" class="btn btn--ghost">호롱이 만나기</a>
       </div>
     </div>
-  </div>
-</div>
+  </header>
 
-<section id="goods" class="goods">
-  <div class="goods__head">
-    <h2 class="goods__title">호롱이 굿즈</h2>
-    <p class="goods__sub">아직 출시 전이에요. 갖고 싶은 굿즈에 구매 의사를 남겨주시면 출시 소식을 가장 먼저 알려드려요.</p>
+  <!-- 스토리 섹션 -->
+  <div id="story" style="padding: clamp(80px,12vh,140px) 0 0;">
+    <div class="story-section">
+      <button class="story-entry" id="story-open-btn" aria-haspopup="dialog" aria-label="호롱이 탄생 스토리 보기"
+        style="height: 100%;">
+        <div class="story-entry__icon"><img src="horong_e.png" alt="" /></div>
+        <div class="story-entry__body">
+          <p class="story-entry__label">ORIGIN STORY</p>
+          <h2 class="story-entry__title">호롱이의 탄생</h2>
+          <p class="story-entry__desc">포항에서 가장 먼저 떠오르는 해에는<br />아무도 모르는 작은 비밀이 있습니다.</p>
+          <p style="margin-top: 24px; font-weight: 700; color: var(--peach);">스토리 감상하기 &rarr;</p>
+        </div>
+      </button>
+
+      <div class="story-meaning">
+        <h3 class="story-meaning__title">왜 '호롱'일까요?</h3>
+        <div class="story-meaning__equation">HORONG = 호미곶 + 호롱불</div>
+
+        <ul class="story-meaning__list">
+          <li class="story-meaning__item">
+            <h4>호 (호미곶)</h4>
+            <p>포항에서 가장 먼저 해가 떠오르는 곳.</p>
+          </li>
+          <li class="story-meaning__item">
+            <h4>롱 (호롱불)</h4>
+            <p>희망과 따뜻함,<br />그리고 사람들의 추억을 비추는 작은 불빛.</p>
+          </li>
+        </ul>
+
+        <div class="story-meaning__divider"></div>
+
+        <h4 style="font-size: 18px; font-weight: 800; color: var(--ink); margin-bottom: 16px;">이름에 담긴 의미</h4>
+        <ul class="story-meaning__list" style="gap: 12px; margin-bottom: 32px;">
+          <li class="story-meaning__item" style="display: flex; align-items: center; gap: 8px;"><span
+              style="font-size: 20px;">☀️</span>
+            <p style="font-weight: 600; color: var(--ink);">첫 햇살</p>
+          </li>
+          <li class="story-meaning__item" style="display: flex; align-items: center; gap: 8px;"><span
+              style="font-size: 20px;">🔥</span>
+            <p style="font-weight: 600; color: var(--ink);">따뜻한 불빛</p>
+          </li>
+          <li class="story-meaning__item" style="display: flex; align-items: center; gap: 8px;"><span
+              style="font-size: 20px;">🤍</span>
+            <p style="font-weight: 600; color: var(--ink);">사람들의 이야기</p>
+          </li>
+          <li class="story-meaning__item" style="display: flex; align-items: center; gap: 8px;"><span
+              style="font-size: 20px;">🌊</span>
+            <p style="font-weight: 600; color: var(--ink);">포항의 여행</p>
+          </li>
+        </ul>
+
+        <div class="story-meaning__promise">
+          <span style="color: var(--peach); display: block; margin-bottom: 8px;">호롱이의 약속</span>
+          작은 이야기 하나도<br />오래도록 빛날 수 있도록.
+        </div>
+      </div>
+    </div>
   </div>
+
+  <section id="goods" class="goods">
+    <div class="goods__head">
+      <h2 class="goods__title">호롱이 굿즈</h2>
+      <p class="goods__sub">아직 출시 전이에요. 갖고 싶은 굿즈에 구매 의사를 남겨주시면 출시 소식을 가장 먼저 알려드려요.</p>
+    </div>
     <div class="goods__grid">
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods/plush.png" alt="봉제인형 (25cm)" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">봉제인형 (25cm)</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
+      <article class="card">
+        <div class="card__img-wrap"><img src="goods/plush.png" alt="봉제인형 (25cm)" loading="lazy" /></div>
+        <div class="card__body">
+          <div class="card__head">
+            <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">봉제인형 (25cm)</h3>
+            <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2" fill="none">
+                <path
+                  d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z" />
+              </svg></button>
+          </div>
+          <button class="card__cta" data-item="봉제인형 (25cm)">구매 의사 등록</button>
         </div>
-        <button class="card__cta" data-item="봉제인형 (25cm)">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods/keyring.png" alt="키링 인형 (10cm)" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">키링 인형 (10cm)</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
+      </article>
+      <article class="card">
+        <div class="card__img-wrap"><img src="goods/keyring-doll.png" alt="키링 인형 (10cm)" loading="lazy" /></div>
+        <div class="card__body">
+          <div class="card__head">
+            <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">키링 인형 (10cm)</h3>
+            <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2" fill="none">
+                <path
+                  d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z" />
+              </svg></button>
+          </div>
+          <button class="card__cta" data-item="키링 인형 (10cm)">구매 의사 등록</button>
         </div>
-        <button class="card__cta" data-item="키링 인형 (10cm)">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_04.png" alt="아크릴 키링" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">아크릴 키링</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
+      </article>
+      <article class="card">
+        <div class="card__img-wrap"><img src="goods/keyring-acrylic.png" alt="아크릴 키링" loading="lazy" /></div>
+        <div class="card__body">
+          <div class="card__head">
+            <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">아크릴 키링</h3>
+            <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2" fill="none">
+                <path
+                  d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z" />
+              </svg></button>
+          </div>
+          <button class="card__cta" data-item="아크릴 키링">구매 의사 등록</button>
         </div>
-        <button class="card__cta" data-item="아크릴 키링">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_05.png" alt="쉐이커 키링" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">쉐이커 키링</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
+      </article>
+      <article class="card">
+        <div class="card__img-wrap"><img src="goods/sticker.png" alt="스티커팩" loading="lazy" /></div>
+        <div class="card__body">
+          <div class="card__head">
+            <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">스티커팩</h3>
+            <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2" fill="none">
+                <path
+                  d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z" />
+              </svg></button>
+          </div>
+          <button class="card__cta" data-item="스티커팩">구매 의사 등록</button>
         </div>
-        <button class="card__cta" data-item="쉐이커 키링">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods/sticker.png" alt="스티커팩" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">스티커팩</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
+      </article>
+      <article class="card">
+        <div class="card__img-wrap"><img src="goods/memo.png" alt="메모지" loading="lazy" /></div>
+        <div class="card__body">
+          <div class="card__head">
+            <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">메모지</h3>
+            <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2" fill="none">
+                <path
+                  d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z" />
+              </svg></button>
+          </div>
+          <button class="card__cta" data-item="메모지">구매 의사 등록</button>
         </div>
-        <button class="card__cta" data-item="스티커팩">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_07.png" alt="노트" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">노트</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
+      </article>
+      <article class="card">
+        <div class="card__img-wrap"><img src="goods/pen.png" alt="볼펜" loading="lazy" /></div>
+        <div class="card__body">
+          <div class="card__head">
+            <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">볼펜</h3>
+            <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2" fill="none">
+                <path
+                  d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z" />
+              </svg></button>
+          </div>
+          <button class="card__cta" data-item="볼펜">구매 의사 등록</button>
         </div>
-        <button class="card__cta" data-item="노트">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_08.png" alt="메모지" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">메모지</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
+      </article>
+      <article class="card">
+        <div class="card__img-wrap"><img src="goods/mug.png" alt="머그컵" loading="lazy" /></div>
+        <div class="card__body">
+          <div class="card__head">
+            <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">머그컵</h3>
+            <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2" fill="none">
+                <path
+                  d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z" />
+              </svg></button>
+          </div>
+          <button class="card__cta" data-item="머그컵">구매 의사 등록</button>
         </div>
-        <button class="card__cta" data-item="메모지">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_09.png" alt="볼펜" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">볼펜</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
+      </article>
+      <article class="card">
+        <div class="card__img-wrap"><img src="goods/tumbler.png" alt="텀블러" loading="lazy" /></div>
+        <div class="card__body">
+          <div class="card__head">
+            <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">텀블러</h3>
+            <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2" fill="none">
+                <path
+                  d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z" />
+              </svg></button>
+          </div>
+          <button class="card__cta" data-item="텀블러">구매 의사 등록</button>
         </div>
-        <button class="card__cta" data-item="볼펜">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods/mug.png" alt="머그컵" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">머그컵</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
+      </article>
+      <article class="card">
+        <div class="card__img-wrap"><img src="goods/coaster.png" alt="코스터" loading="lazy" /></div>
+        <div class="card__body">
+          <div class="card__head">
+            <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">코스터</h3>
+            <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2" fill="none">
+                <path
+                  d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z" />
+              </svg></button>
+          </div>
+          <button class="card__cta" data-item="코스터">구매 의사 등록</button>
         </div>
-        <button class="card__cta" data-item="머그컵">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods/tumbler.png" alt="텀블러" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">텀블러</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
+      </article>
+      <article class="card">
+        <div class="card__img-wrap"><img src="goods/pouch.png" alt="파우치" loading="lazy" /></div>
+        <div class="card__body">
+          <div class="card__head">
+            <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">파우치</h3>
+            <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2" fill="none">
+                <path
+                  d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z" />
+              </svg></button>
+          </div>
+          <button class="card__cta" data-item="파우치">구매 의사 등록</button>
         </div>
-        <button class="card__cta" data-item="텀블러">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods/coaster.png" alt="코스터" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">코스터</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
+      </article>
+      <article class="card">
+        <div class="card__img-wrap"><img src="goods/tshirt.png" alt="티셔츠" loading="lazy" /></div>
+        <div class="card__body">
+          <div class="card__head">
+            <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">티셔츠</h3>
+            <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2" fill="none">
+                <path
+                  d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z" />
+              </svg></button>
+          </div>
+          <button class="card__cta" data-item="티셔츠">구매 의사 등록</button>
         </div>
-        <button class="card__cta" data-item="코스터">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods/ecobag.png" alt="에코백" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">에코백</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
+      </article>
+      <article class="card">
+        <div class="card__img-wrap"><img src="goods/socks.png" alt="양말" loading="lazy" /></div>
+        <div class="card__body">
+          <div class="card__head">
+            <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">양말</h3>
+            <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor"
+                stroke-width="2" fill="none">
+                <path
+                  d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z" />
+              </svg></button>
+          </div>
+          <button class="card__cta" data-item="양말">구매 의사 등록</button>
         </div>
-        <button class="card__cta" data-item="에코백">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_15.png" alt="파우치" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">파우치</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
-        </div>
-        <button class="card__cta" data-item="파우치">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods/tshirt.png" alt="티셔츠" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">티셔츠</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
-        </div>
-        <button class="card__cta" data-item="티셔츠">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods/cap.png" alt="볼캡" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">볼캡</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
-        </div>
-        <button class="card__cta" data-item="볼캡">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_13.png" alt="양말" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">양말</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
-        </div>
-        <button class="card__cta" data-item="양말">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_11.png" alt="가방고리" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">가방고리</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
-        </div>
-        <button class="card__cta" data-item="가방고리">구매 의사 등록</button>
-      </div>
-    </article>
-  </div>
-</section>
+      </article>
 
-<section id="sns" class="sns">
-  <div class="sns__head">
-    <h2 class="sns__title">호롱이 인스타그램</h2>
-    <p class="sns__sub">포항 곳곳을 여행하는 호롱이의 하루하루는 인스타그램에서 가장 먼저 만날 수 있어요.</p>
-  </div>
-  <div class="sns__grid">
-    <a class="sns__video-card" href="https://www.instagram.com/horong_pass/" target="_blank" rel="noopener">
-      <video autoplay muted loop playsinline poster="horong_e.png">
-        <source src="horong_sea.mp4" type="video/mp4" />
-      </video>
-      <div class="sns__video-tag">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
-        <span>@horong_pass<br /><small>바다를 여행하는 호롱이 보러가기</small></span>
-      </div>
-    </a>
-    <div class="sns__gallery-card">
-      <img src="image.png" alt="호롱이 스티커 모음" loading="lazy" />
-      <a class="btn btn--primary sns__cta" href="https://www.instagram.com/horong_pass/" target="_blank" rel="noopener">인스타그램 팔로우하기 &rarr;</a>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- 스토리 모달 -->
-<div class="story-modal" id="story-modal" role="dialog" aria-modal="true" aria-label="호롱이 탄생 스토리">
-  <div class="story-modal__glow"></div>
-
-  <button class="story-modal__close" id="story-modal-close" aria-label="스토리 닫기">&times;</button>
-
-  <div class="story-modal__stage" id="story-stage">
-
-    <!-- 씬 1 -->
-    <div class="story-scene is-active" data-scene="0">
-      <p class="story-scene__quote">Pohang · 호미곶</p>
-      <p class="story-scene__text">
-        포항에서 가장 먼저 떠오르는 해에는<br />
-        <span class="soft">아무도 모르는 작은 비밀이 있습니다.</span>
-      </p>
+  <section id="sns" class="sns">
+    <div class="sns__head">
+      <h2 class="sns__title">호롱이 인스타그램</h2>
+      <p class="sns__sub">포항 곳곳을 여행하는 호롱이의 하루하루는 인스타그램에서 가장 먼저 만날 수 있어요.</p>
     </div>
-
-    <!-- 씬 2 -->
-    <div class="story-scene" data-scene="1">
-      <p class="story-scene__text">
-        매일 아침,<br />
-        <em>첫 번째 햇살이 바다를 비추면</em>
-      </p>
-      <div class="story-divider"></div>
-      <p class="story-scene__text">
-        세상에서 가장 작은 불빛 하나가<br />
-        <span class="soft">조용히 깨어납니다.</span>
-      </p>
-    </div>
-
-    <!-- 씬 3 -->
-    <div class="story-scene" data-scene="2">
-      <p class="story-scene__text">
-        조용히 깨어난 그 불빛은
-      </p>
-      <div class="story-divider"></div>
-      <p class="story-scene__text">
-        사람들의 웃음,<br />
-        여행의 설렘,<br />
-        <em>잊지 못할 추억을 품은 채</em><br />
-        <span class="soft">조금씩, 조금씩 자라납니다.</span>
-      </p>
-    </div>
-
-    <!-- 씬 4 -->
-    <div class="story-scene" data-scene="3">
-      <p class="story-scene__text">
-        <span class="soft">충분히 커진 그날,</span><br />
-        불빛은 몇 계단을 넘어 세상 밖으로 나왔습니다.
-      </p>
-      <div class="story-divider"></div>
-      <p class="story-scene__text">
-        <em>한 친구가 되어,</em><br />
-        <span class="soft">이 세상에 조용히 등장했습니다.</span>
-      </p>
-    </div>
-
-    <!-- 씬 5: 이름 공개 -->
-    <div class="story-scene" data-scene="4">
-      <p class="story-scene__quote" style="margin-bottom:32px;">그 이름이</p>
-      <p class="story-scene__name">HOR<span class="dot">·</span>ONG</p>
-    </div>
-
-    <!-- 씬 6: 호롱이 등장 + 대사 -->
-    <div class="story-scene story-scene--chat" data-scene="5">
-      <div class="story-chat__character">
-        <div class="story-chat__avatar">
-          <img src="horong_e.png" alt="호롱이" />
+    <div class="sns__grid">
+      <a class="sns__video-card" href="https://www.instagram.com/horong_pass/" target="_blank" rel="noopener">
+        <video autoplay muted loop playsinline poster="horong_e.png">
+          <source src="horong_sea.mp4" type="video/mp4" />
+        </video>
+        <div class="sns__video-tag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8">
+            <rect x="3" y="3" width="18" height="18" rx="5" />
+            <circle cx="12" cy="12" r="4" />
+            <circle cx="17.5" cy="6.5" r="1" />
+          </svg>
+          <span>@horong_pass<br /><small>바다를 여행하는 호롱이 보러가기</small></span>
         </div>
-        <div>
-          <p class="story-chat__name">HORONG</p>
-          <div class="story-chat__bubbles">
-            <div class="story-bubble">"뭐 하노~? 포항 돌아다니니 너무 좋다!"</div>
-            <div class="story-bubble">"내는 호롱이데이! 니 이름은 뭐노?"</div>
-            <div class="story-bubble">"빨리 온나~ 내랑 놀러 가자!"</div>
+      </a>
+      <div class="sns__gallery-card">
+        <img src="image.png" alt="호롱이 스티커 모음" loading="lazy" />
+        <a class="btn btn--primary sns__cta" href="https://www.instagram.com/horong_pass/" target="_blank"
+          rel="noopener">인스타그램 팔로우하기 &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 스토리 모달 -->
+  <div class="story-modal" id="story-modal" role="dialog" aria-modal="true" aria-label="호롱이 탄생 스토리">
+    <div class="story-modal__glow"></div>
+
+    <button class="story-modal__close" id="story-modal-close" aria-label="스토리 닫기">&times;</button>
+
+    <div class="story-modal__stage" id="story-stage">
+
+      <!-- 씬 1 -->
+      <div class="story-scene is-active" data-scene="0">
+        <p class="story-scene__quote">Pohang · 호미곶</p>
+        <p class="story-scene__text">
+          포항에서 가장 먼저 떠오르는 해에는<br />
+          <span class="soft">아무도 모르는 작은 비밀이 있습니다.</span>
+        </p>
+      </div>
+
+      <!-- 씬 2 -->
+      <div class="story-scene" data-scene="1">
+        <p class="story-scene__text">
+          매일 아침,<br />
+          <em>첫 번째 햇살이 바다를 비추면</em>
+        </p>
+        <div class="story-divider"></div>
+        <p class="story-scene__text">
+          세상에서 가장 작은 불빛 하나가<br />
+          <span class="soft">조용히 깨어납니다.</span>
+        </p>
+      </div>
+
+      <!-- 씬 3 -->
+      <div class="story-scene" data-scene="2">
+        <p class="story-scene__text">
+          조용히 깨어난 그 불빛은
+        </p>
+        <div class="story-divider"></div>
+        <p class="story-scene__text">
+          사람들의 웃음,<br />
+          여행의 설렘,<br />
+          <em>잊지 못할 추억을 품은 채</em><br />
+          <span class="soft">조금씩, 조금씩 자라납니다.</span>
+        </p>
+      </div>
+
+      <!-- 씬 4 -->
+      <div class="story-scene" data-scene="3">
+        <p class="story-scene__text">
+          <span class="soft">충분히 커진 그날,</span><br />
+          불빛은 몇 계단을 넘어 세상 밖으로 나왔습니다.
+        </p>
+        <div class="story-divider"></div>
+        <p class="story-scene__text">
+          <em>한 친구가 되어,</em><br />
+          <span class="soft">이 세상에 조용히 등장했습니다.</span>
+        </p>
+      </div>
+
+      <!-- 씬 5: 이름 공개 -->
+      <div class="story-scene" data-scene="4">
+        <p class="story-scene__quote" style="margin-bottom:32px;">그 이름이</p>
+        <p class="story-scene__name">HOR<span class="dot">·</span>ONG</p>
+      </div>
+
+      <!-- 씬 6: 호롱이 등장 + 대사 -->
+      <div class="story-scene story-scene--chat" data-scene="5">
+        <div class="story-chat__character">
+          <div class="story-chat__avatar">
+            <img src="horong_e.png" alt="호롱이" />
+          </div>
+          <div>
+            <p class="story-chat__name">HORONG</p>
+            <div class="story-chat__bubbles">
+              <div class="story-bubble">"뭐 하노~? 포항 돌아다니니 너무 좋다!"</div>
+              <div class="story-bubble">"내는 호롱이데이! 니 이름은 뭐노?"</div>
+              <div class="story-bubble">"빨리 온나~ 내랑 놀러 가자!"</div>
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- 씬 7: 엔딩 메시지 -->
+      <div class="story-scene story-scene--ending" data-scene="6">
+        <p class="story-scene__text">
+          어쩌면,<br />
+          호롱이가 찾고 있는 다음 이야기는
+          <em>바로 당신의 이야기일지도 모릅니다.</em>
+        </p>
+        <button class="story-btn-journey" id="story-journey-btn">
+          Begin the Journey
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </button>
+      </div>
+
     </div>
 
-    <!-- 씬 7: 엔딩 메시지 -->
-    <div class="story-scene story-scene--ending" data-scene="6">
-      <p class="story-scene__text">
-        어쩌면,<br />
-        호롱이가 찾고 있는 다음 이야기는
-        <em>바로 당신의 이야기일지도 모릅니다.</em>
-      </p>
-      <button class="story-btn-journey" id="story-journey-btn">
-        Begin the Journey
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </button>
-    </div>
-
+    <div class="story-modal__progress" id="story-progress"></div>
+    <p class="story-modal__hint" id="story-hint">화면을 클릭해서 다음으로</p>
   </div>
 
-  <div class="story-modal__progress" id="story-progress"></div>
-  <p class="story-modal__hint" id="story-hint">화면을 클릭해서 다음으로</p>
-</div>
-
-<!-- 구매 의사 등록 모달 -->
-<div class="modal" id="interest-modal" hidden>
-  <div class="modal__backdrop" data-close></div>
-  <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <button class="modal__close" data-close aria-label="닫기">&times;</button>
-    <div id="modal-step-form">
-      <h3 class="modal__title" id="modal-title">아직 출시 전이에요</h3>
-      <p class="modal__desc"><strong id="modal-item-name"></strong> 구매 의사가 등록됐어요.<br />이메일을 남기면 출시 때 바로 알려드릴게요.</p>
-      <form class="modal__form" id="interest-form">
-        <label class="modal__label" for="interest-email">이메일</label>
-        <input class="modal__input" id="interest-email" type="email" placeholder="you@example.com" required />
-        <button class="modal__submit" type="submit">출시 알림 받기</button>
-        <button class="modal__skip" type="button" data-close>이메일 없이 등록만 할게요</button>
-      </form>
-    </div>
-    <div id="modal-step-done" class="modal__done" hidden>
-      <div class="modal__done-mark">&#10003;</div>
-      <h3 class="modal__title">등록 완료!</h3>
-      <p class="modal__desc">출시 소식을 가장 먼저 알려드릴게요.</p>
+  <!-- 구매 의사 등록 모달 -->
+  <div class="modal" id="interest-modal" hidden>
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="modal__close" data-close aria-label="닫기">&times;</button>
+      <div id="modal-step-form">
+        <h3 class="modal__title" id="modal-title">아직 출시 전이에요</h3>
+        <p class="modal__desc"><strong id="modal-item-name"></strong> 구매 의사가 등록됐어요.<br />이메일을 남기면 출시 때 바로 알려드릴게요.</p>
+        <form class="modal__form" id="interest-form">
+          <label class="modal__label" for="interest-email">이메일</label>
+          <input class="modal__input" id="interest-email" type="email" placeholder="you@example.com" required />
+          <button class="modal__submit" type="submit">출시 알림 받기</button>
+          <button class="modal__skip" type="button" data-close>이메일 없이 등록만 할게요</button>
+        </form>
+      </div>
+      <div id="modal-step-done" class="modal__done" hidden>
+        <div class="modal__done-mark">&#10003;</div>
+        <h3 class="modal__title">등록 완료!</h3>
+        <p class="modal__desc">출시 소식을 가장 먼저 알려드릴게요.</p>
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-  // ── 스토리 모달 ──────────────────────────────────────────────
-  const storyModal = document.getElementById('story-modal');
-  const storyStage = document.getElementById('story-stage');
-  const storyProgress = document.getElementById('story-progress');
-  const storyHint = document.getElementById('story-hint');
-  const storyOpenBtn = document.getElementById('story-open-btn');
-  const storyCloseBtn = document.getElementById('story-modal-close');
+  <script>
+    // ── 스토리 모달 ──────────────────────────────────────────────
+    const storyModal = document.getElementById('story-modal');
+    const storyStage = document.getElementById('story-stage');
+    const storyProgress = document.getElementById('story-progress');
+    const storyHint = document.getElementById('story-hint');
+    const storyOpenBtn = document.getElementById('story-open-btn');
+    const storyCloseBtn = document.getElementById('story-modal-close');
 
-  const scenes = storyStage.querySelectorAll('.story-scene');
-  const totalScenes = scenes.length;
-  let currentScene = 0;
-  let isAnimating = false;
+    const scenes = storyStage.querySelectorAll('.story-scene');
+    const totalScenes = scenes.length;
+    let currentScene = 0;
+    let isAnimating = false;
 
-  function updateProgress() {
-    const pct = ((currentScene + 1) / totalScenes) * 100;
-    storyProgress.style.width = pct + '%';
-    storyHint.classList.toggle('is-last', currentScene === totalScenes - 1);
-    if (currentScene === totalScenes - 1) {
-      storyHint.style.display = 'none';
-    } else {
-      storyHint.style.display = '';
-    }
-  }
-
-  function goToScene(index) {
-    if (isAnimating) return;
-    if (index < 0 || index >= totalScenes) return;
-    isAnimating = true;
-
-    const current = scenes[currentScene];
-    current.classList.add('is-exit');
-
-    setTimeout(() => {
-      current.classList.remove('is-active', 'is-exit');
-      currentScene = index;
-      const next = scenes[currentScene];
-      next.classList.add('is-active');
-      updateProgress();
-      isAnimating = false;
-    }, 380);
-  }
-
-  function nextScene() {
-    if (currentScene < totalScenes - 1) {
-      goToScene(currentScene + 1);
-    }
-    // 마지링 씬(엔딩)은 버튼이 닫기 담당
-  }
-
-  function openStory() {
-    currentScene = 0;
-    scenes.forEach((s, i) => {
-      s.classList.remove('is-active', 'is-exit');
-      if (i === 0) s.classList.add('is-active');
-    });
-    updateProgress();
-    storyModal.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeStory() {
-    storyModal.classList.remove('is-open');
-    document.body.style.overflow = '';
-  }
-
-  storyOpenBtn.addEventListener('click', openStory);
-
-  // 네비게이션 "스토리" 링크도 모달로 연결
-  document.querySelectorAll('a[href="#story"]').forEach(a => {
-    a.addEventListener('click', e => {
-      e.preventDefault();
-      e.stopPropagation();
-      document.getElementById('story').scrollIntoView({ behavior: 'auto', block: 'start' });
-      setTimeout(openStory, 300);
-    });
-  });
-
-  storyCloseBtn.addEventListener('click', closeStory);
-
-  // 엔딩 "Begin the Journey" 버튼
-  document.getElementById('story-journey-btn').addEventListener('click', e => {
-    e.stopPropagation();
-    closeStory();
-    document.getElementById('goods').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-
-  // 스테이지 클릭 → 다음 씬
-  storyStage.addEventListener('click', nextScene);
-
-  // ESC 닫기
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && storyModal.classList.contains('is-open')) closeStory();
-    if (e.key === 'ArrowRight' && storyModal.classList.contains('is-open')) nextScene();
-  });
-
-  // 허브 "호롱이 만나기" 버튼도 모달로
-  document.querySelectorAll('.btn--ghost[href="#story"]').forEach(btn => {
-    btn.addEventListener('click', e => {
-      e.preventDefault();
-      openStory();
-    });
-  });
-
-  const SUPABASE_URL = 'https://vuglofumvelzbodjswyx.supabase.co';
-  const SUPABASE_KEY = 'sb_publishable_VWRku3Z9d9OakfT72imlZQ_jNMEDdyA';
-
-  const modal = document.getElementById('interest-modal');
-  const stepForm = document.getElementById('modal-step-form');
-  const stepDone = document.getElementById('modal-step-done');
-  const itemNameEl = document.getElementById('modal-item-name');
-  const form = document.getElementById('interest-form');
-  const emailInput = document.getElementById('interest-email');
-  let currentItem = null;
-  let currentBtn = null;
-
-  function markInterest(item, email) {
-    const log = JSON.parse(localStorage.getItem('horong_interest') || '[]');
-    log.push({ item, email: email || null, ts: new Date().toISOString() });
-    localStorage.setItem('horong_interest', JSON.stringify(log));
-
-    fetch(`${SUPABASE_URL}/rest/v1/interest`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`
-      },
-      body: JSON.stringify({ item, email: email || null })
-    }).catch(() => {});
-  }
-
-  function markButtonDone(btn) {
-    btn.classList.add('is-done');
-    btn.textContent = '관심 등록 완료 ✓';
-    btn.disabled = true;
-  }
-
-  document.querySelectorAll('.card__cta').forEach(btn => {
-    btn.addEventListener('click', () => {
-      currentItem = btn.dataset.item;
-      currentBtn = btn;
-      itemNameEl.textContent = currentItem;
-      stepForm.hidden = false;
-      stepDone.hidden = true;
-      emailInput.value = '';
-      modal.hidden = false;
-      emailInput.focus();
-    });
-  });
-
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    markInterest(currentItem, emailInput.value.trim());
-    markButtonDone(currentBtn);
-    stepForm.hidden = true;
-    stepDone.hidden = false;
-    setTimeout(() => { modal.hidden = true; }, 1400);
-  });
-
-  modal.addEventListener('click', e => {
-    if (e.target.hasAttribute('data-close')) {
-      if (!stepForm.hidden && currentItem) {   // 이메일 없이 닫아도 클릭 자체는 수요 신호로 기록
-        markInterest(currentItem, null);
-        markButtonDone(currentBtn);
+    function updateProgress() {
+      const pct = ((currentScene + 1) / totalScenes) * 100;
+      storyProgress.style.width = pct + '%';
+      storyHint.classList.toggle('is-last', currentScene === totalScenes - 1);
+      if (currentScene === totalScenes - 1) {
+        storyHint.style.display = 'none';
+      } else {
+        storyHint.style.display = '';
       }
-      modal.hidden = true;
     }
-  });
 
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && !modal.hidden) modal.hidden = true;
-  });
+    function goToScene(index) {
+      if (isAnimating) return;
+      if (index < 0 || index >= totalScenes) return;
+      isAnimating = true;
 
-  // 히어로 벗어나면 nav 배경 전환 (클래스 토글 1회성이라 스크롤 리스너로 충분)
-  const nav = document.querySelector('.nav');
-  const hero = document.querySelector('.hero');
-  function updateNav() {
-    nav.classList.toggle('is-solid', window.scrollY > hero.offsetHeight - 68);
-  }
-  window.addEventListener('scroll', updateNav, { passive: true });
-  updateNav();
+      const current = scenes[currentScene];
+      current.classList.add('is-exit');
 
-  // 앵커 클릭 시 명시적으로 스크롤 (video 재생 중 브라우저가 smooth-scroll을 끊는 경우 대비)
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
-      if (!target) return;
+      setTimeout(() => {
+        current.classList.remove('is-active', 'is-exit');
+        currentScene = index;
+        const next = scenes[currentScene];
+        next.classList.add('is-active');
+        updateProgress();
+        isAnimating = false;
+      }, 380);
+    }
+
+    function nextScene() {
+      if (currentScene < totalScenes - 1) {
+        goToScene(currentScene + 1);
+      }
+      // 마지링 씬(엔딩)은 버튼이 닫기 담당
+    }
+
+    function openStory() {
+      currentScene = 0;
+      scenes.forEach((s, i) => {
+        s.classList.remove('is-active', 'is-exit');
+        if (i === 0) s.classList.add('is-active');
+      });
+      updateProgress();
+      storyModal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeStory() {
+      storyModal.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    storyOpenBtn.addEventListener('click', openStory);
+
+    // 네비게이션 "스토리" 링크도 모달로 연결
+    document.querySelectorAll('a[href="#story"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        document.getElementById('story').scrollIntoView({ behavior: 'auto', block: 'start' });
+        setTimeout(openStory, 300);
+      });
+    });
+
+    storyCloseBtn.addEventListener('click', closeStory);
+
+    // 엔딩 "Begin the Journey" 버튼
+    document.getElementById('story-journey-btn').addEventListener('click', e => {
+      e.stopPropagation();
+      closeStory();
+      document.getElementById('goods').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    // 스테이지 클릭 → 다음 씬
+    storyStage.addEventListener('click', nextScene);
+
+    // ESC 닫기
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && storyModal.classList.contains('is-open')) closeStory();
+      if (e.key === 'ArrowRight' && storyModal.classList.contains('is-open')) nextScene();
+    });
+
+    // 허브 "호롱이 만나기" 버튼도 모달로
+    document.querySelectorAll('.btn--ghost[href="#story"]').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        openStory();
+      });
+    });
+
+    const SUPABASE_URL = 'https://vuglofumvelzbodjswyx.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_VWRku3Z9d9OakfT72imlZQ_jNMEDdyA';
+
+    const modal = document.getElementById('interest-modal');
+    const stepForm = document.getElementById('modal-step-form');
+    const stepDone = document.getElementById('modal-step-done');
+    const itemNameEl = document.getElementById('modal-item-name');
+    const form = document.getElementById('interest-form');
+    const emailInput = document.getElementById('interest-email');
+    let currentItem = null;
+    let currentBtn = null;
+
+    function markInterest(item, email) {
+      const log = JSON.parse(localStorage.getItem('horong_interest') || '[]');
+      log.push({ item, email: email || null, ts: new Date().toISOString() });
+      localStorage.setItem('horong_interest', JSON.stringify(log));
+
+      fetch(`${SUPABASE_URL}/rest/v1/interest`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`
+        },
+        body: JSON.stringify({ item, email: email || null })
+      }).catch(() => { });
+    }
+
+    function markButtonDone(btn) {
+      btn.classList.add('is-done');
+      btn.textContent = '관심 등록 완료 ✓';
+      btn.disabled = true;
+    }
+
+    document.querySelectorAll('.card__cta').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentItem = btn.dataset.item;
+        currentBtn = btn;
+        itemNameEl.textContent = currentItem;
+        stepForm.hidden = false;
+        stepDone.hidden = true;
+        emailInput.value = '';
+        modal.hidden = false;
+        emailInput.focus();
+      });
+    });
+
+    form.addEventListener('submit', e => {
       e.preventDefault();
-      target.scrollIntoView({ behavior: 'auto', block: 'start' });
+      markInterest(currentItem, emailInput.value.trim());
+      markButtonDone(currentBtn);
+      stepForm.hidden = true;
+      stepDone.hidden = false;
+      setTimeout(() => { modal.hidden = true; }, 1400);
     });
-  });
 
-  // 재방문 시 등록한 아이템 done 상태 복원
-  const saved = JSON.parse(localStorage.getItem('horong_interest') || '[]');
-  const savedItems = new Set(saved.map(r => r.item));
-  document.querySelectorAll('.card__cta').forEach(btn => {
-    if (savedItems.has(btn.dataset.item)) markButtonDone(btn);
-  });
-
-  // 좋아요 토글 (localStorage)
-  const likes = new Set(JSON.parse(localStorage.getItem('horong_likes') || '[]'));
-  document.querySelectorAll('.card__like').forEach(btn => {
-    const item = btn.closest('.card').querySelector('.card__cta').dataset.item;
-    if (likes.has(item)) btn.classList.add('is-liked');
-    btn.addEventListener('click', () => {
-      if (likes.has(item)) { likes.delete(item); btn.classList.remove('is-liked'); }
-      else { likes.add(item); btn.classList.add('is-liked'); }
-      localStorage.setItem('horong_likes', JSON.stringify([...likes]));
+    modal.addEventListener('click', e => {
+      if (e.target.hasAttribute('data-close')) {
+        if (!stepForm.hidden && currentItem) {   // 이메일 없이 닫아도 클릭 자체는 수요 신호로 기록
+          markInterest(currentItem, null);
+          markButtonDone(currentBtn);
+        }
+        modal.hidden = true;
+      }
     });
-  });
-</script>
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && !modal.hidden) modal.hidden = true;
+    });
+
+    // 히어로 벗어나면 nav 배경 전환 (클래스 토글 1회성이라 스크롤 리스너로 충분)
+    const nav = document.querySelector('.nav');
+    const hero = document.querySelector('.hero');
+    function updateNav() {
+      nav.classList.toggle('is-solid', window.scrollY > hero.offsetHeight - 68);
+    }
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
+
+    // 앵커 클릭 시 명시적으로 스크롤 (video 재생 중 브라우저가 smooth-scroll을 끊는 경우 대비)
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'auto', block: 'start' });
+      });
+    });
+
+    // 재방문 시 등록한 아이템 done 상태 복원
+    const saved = JSON.parse(localStorage.getItem('horong_interest') || '[]');
+    const savedItems = new Set(saved.map(r => r.item));
+    document.querySelectorAll('.card__cta').forEach(btn => {
+      if (savedItems.has(btn.dataset.item)) markButtonDone(btn);
+    });
+
+    // 좋아요 토글 (localStorage)
+    const likes = new Set(JSON.parse(localStorage.getItem('horong_likes') || '[]'));
+    document.querySelectorAll('.card__like').forEach(btn => {
+      const item = btn.closest('.card').querySelector('.card__cta').dataset.item;
+      if (likes.has(item)) btn.classList.add('is-liked');
+      btn.addEventListener('click', () => {
+        if (likes.has(item)) { likes.delete(item); btn.classList.remove('is-liked'); }
+        else { likes.add(item); btn.classList.add('is-liked'); }
+        localStorage.setItem('horong_likes', JSON.stringify([...likes]));
+      });
+    });
+  </script>
 
 </body>
+
 </html>
