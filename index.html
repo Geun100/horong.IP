@@ -306,6 +306,90 @@
     cursor: default;
   }
 
+  /* ── SNS ─────────────────────────── */
+  .sns {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: clamp(80px, 12vh, 140px) clamp(20px, 4vw, 48px);
+  }
+  .sns__head {
+    max-width: 65ch;
+    margin-bottom: 48px;
+  }
+  .sns__title {
+    font-weight: 900;
+    font-size: clamp(34px, 5vw, 56px);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+  .sns__sub {
+    margin-top: 14px;
+    font-size: clamp(15px, 1.6vw, 17px);
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .sns__grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(20px, 3vw, 28px);
+    align-items: start;
+  }
+  @media (max-width: 860px) { .sns__grid { grid-template-columns: 1fr; } }
+
+  .sns__video-card {
+    position: relative;
+    display: block;
+    border-radius: 28px;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    text-decoration: none;
+  }
+  .sns__video-card video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .sns__video-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(20,14,8,0.75) 100%);
+  }
+  .sns__video-tag {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: absolute;
+    left: 24px;
+    bottom: 24px;
+    color: #fff;
+    font-weight: 700;
+  }
+  .sns__video-tag svg { width: 22px; height: 22px; flex-shrink: 0; }
+  .sns__video-tag span { font-size: 15px; }
+  .sns__video-tag small { display: block; font-weight: 500; opacity: 0.75; font-size: 12px; }
+
+  .sns__gallery-card {
+    background: #fff;
+    border-radius: 28px;
+    padding: clamp(20px, 3vw, 28px);
+    display: flex;
+    flex-direction: column;
+  }
+  .sns__gallery-card img {
+    width: 100%;
+    border-radius: 16px;
+    background: #fbf8f3;
+  }
+  .sns__cta {
+    margin-top: 20px;
+    align-self: flex-start;
+  }
+
   /* ── Modal ─────────────────────────── */
   .modal[hidden] { display: none; }
   .modal {
@@ -757,8 +841,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
     font-size: clamp(24px, 3.5vw, 36px);
     transition: background 0.2s;
+  }
+  .story-entry__icon img {
+    width: 82%;
+    height: 82%;
+    object-fit: contain;
   }
   .story-entry:hover .story-entry__icon {
     background: rgba(245,154,107,0.25);
@@ -803,9 +893,78 @@
     transform: translateX(3px);
   }
 
+  /* 탄생 스토리 + 이름의 의미, 나란히 */
+  .story-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(20px, 3vw, 28px);
+    align-items: stretch;
+  }
+  .story-meaning {
+    background: #fff;
+    border-radius: 28px;
+    padding: clamp(32px, 5vw, 56px);
+    display: flex;
+    flex-direction: column;
+  }
+  .story-meaning__title {
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+  .story-meaning__equation {
+    display: inline-block;
+    align-self: flex-start;
+    background: var(--cream);
+    border: 1px solid #ece4d4;
+    border-radius: 999px;
+    padding: 9px 20px;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--peach-deep);
+    margin-bottom: 28px;
+  }
+  .story-meaning__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .story-meaning__item h4 {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .story-meaning__item p {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .story-meaning__divider {
+    height: 1px;
+    background: #ece4d4;
+    margin: 28px 0;
+  }
+  .story-meaning__promise {
+    margin-top: auto;
+    background: var(--cream);
+    border-radius: 16px;
+    padding: 22px 24px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
   @media (max-width: 560px) {
     .story-entry { flex-direction: column; text-align: center; }
     .story-entry__arrow { display: none; }
+  }
+  @media (max-width: 860px) {
+    .story-section { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -845,7 +1004,7 @@
 <div id="story" style="padding: clamp(80px,12vh,140px) 0 0;">
   <div class="story-section">
     <button class="story-entry" id="story-open-btn" aria-haspopup="dialog" aria-label="호롱이 탄생 스토리 보기" style="height: 100%;">
-      <div class="story-entry__icon">🔆</div>
+      <div class="story-entry__icon"><img src="horong_e.png" alt="" /></div>
       <div class="story-entry__body">
         <p class="story-entry__label">ORIGIN STORY</p>
         <h2 class="story-entry__title">호롱이의 탄생</h2>
@@ -914,7 +1073,7 @@
       </div>
     </article>
     <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_03.png" alt="아크릴 키링" loading="lazy" /></div>
+      <div class="card__img-wrap"><img src="goods_new/item_04.png" alt="아크릴 키링" loading="lazy" /></div>
       <div class="card__body">
         <div class="card__head">
           <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">아크릴 키링</h3>
@@ -924,7 +1083,7 @@
       </div>
     </article>
     <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_04.png" alt="쉐이커 키링" loading="lazy" /></div>
+      <div class="card__img-wrap"><img src="goods_new/item_05.png" alt="쉐이커 키링" loading="lazy" /></div>
       <div class="card__body">
         <div class="card__head">
           <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">쉐이커 키링</h3>
@@ -944,7 +1103,7 @@
       </div>
     </article>
     <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_05.png" alt="노트" loading="lazy" /></div>
+      <div class="card__img-wrap"><img src="goods_new/item_07.png" alt="노트" loading="lazy" /></div>
       <div class="card__body">
         <div class="card__head">
           <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">노트</h3>
@@ -954,7 +1113,7 @@
       </div>
     </article>
     <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_06.png" alt="메모지" loading="lazy" /></div>
+      <div class="card__img-wrap"><img src="goods_new/item_08.png" alt="메모지" loading="lazy" /></div>
       <div class="card__body">
         <div class="card__head">
           <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">메모지</h3>
@@ -964,7 +1123,7 @@
       </div>
     </article>
     <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_07.png" alt="볼펜" loading="lazy" /></div>
+      <div class="card__img-wrap"><img src="goods_new/item_09.png" alt="볼펜" loading="lazy" /></div>
       <div class="card__body">
         <div class="card__head">
           <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">볼펜</h3>
@@ -984,7 +1143,7 @@
       </div>
     </article>
     <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_08.png" alt="텀블러" loading="lazy" /></div>
+      <div class="card__img-wrap"><img src="goods/tumbler.png" alt="텀블러" loading="lazy" /></div>
       <div class="card__body">
         <div class="card__head">
           <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">텀블러</h3>
@@ -994,7 +1153,7 @@
       </div>
     </article>
     <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_17.png" alt="코스터" loading="lazy" /></div>
+      <div class="card__img-wrap"><img src="goods/coaster.png" alt="코스터" loading="lazy" /></div>
       <div class="card__body">
         <div class="card__head">
           <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">코스터</h3>
@@ -1004,7 +1163,7 @@
       </div>
     </article>
     <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_09.png" alt="에코백" loading="lazy" /></div>
+      <div class="card__img-wrap"><img src="goods/ecobag.png" alt="에코백" loading="lazy" /></div>
       <div class="card__body">
         <div class="card__head">
           <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">에코백</h3>
@@ -1014,7 +1173,7 @@
       </div>
     </article>
     <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_10.png" alt="파우치" loading="lazy" /></div>
+      <div class="card__img-wrap"><img src="goods_new/item_15.png" alt="파우치" loading="lazy" /></div>
       <div class="card__body">
         <div class="card__head">
           <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">파우치</h3>
@@ -1044,7 +1203,7 @@
       </div>
     </article>
     <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_12.png" alt="양말" loading="lazy" /></div>
+      <div class="card__img-wrap"><img src="goods_new/item_13.png" alt="양말" loading="lazy" /></div>
       <div class="card__body">
         <div class="card__head">
           <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">양말</h3>
@@ -1054,7 +1213,7 @@
       </div>
     </article>
     <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_13.png" alt="가방고리" loading="lazy" /></div>
+      <div class="card__img-wrap"><img src="goods_new/item_11.png" alt="가방고리" loading="lazy" /></div>
       <div class="card__body">
         <div class="card__head">
           <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">가방고리</h3>
@@ -1063,170 +1222,30 @@
         <button class="card__cta" data-item="가방고리">구매 의사 등록</button>
       </div>
     </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_14.png" alt="폰케이스" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">폰케이스</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
-        </div>
-        <button class="card__cta" data-item="폰케이스">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_15.png" alt="스마트톡" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">스마트톡</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
-        </div>
-        <button class="card__cta" data-item="스마트톡">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_16.png" alt="에어팟 케이스" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">에어팟 케이스</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
-        </div>
-        <button class="card__cta" data-item="에어팟 케이스">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_28.png" alt="무선충전기" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">무선충전기</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
-        </div>
-        <button class="card__cta" data-item="무선충전기">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods/cushion.png" alt="쿠션" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">쿠션</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
-        </div>
-        <button class="card__cta" data-item="쿠션">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_19.png" alt="무드등 & 탁상시계" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">무드등 & 탁상시계</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
-        </div>
-        <button class="card__cta" data-item="무드등 & 탁상시계">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_20.png" alt="담요" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">담요</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
-        </div>
-        <button class="card__cta" data-item="담요">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_21.png" alt="티슈커버" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">티슈커버</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
-        </div>
-        <button class="card__cta" data-item="티슈커버">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods/cookie.png" alt="쿠키세트" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">쿠키세트</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
-        </div>
-        <button class="card__cta" data-item="쿠키세트">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_23.png" alt="마카롱 패키지" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">마카롱 패키지</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
-        </div>
-        <button class="card__cta" data-item="마카롱 패키지">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_24.png" alt="캔디통" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">캔디통</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
-        </div>
-        <button class="card__cta" data-item="캔디통">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_25.png" alt="쇼핑백" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">쇼핑백</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
-        </div>
-        <button class="card__cta" data-item="쇼핑백">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_26.png" alt="핀뱃지" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">핀뱃지</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
-        </div>
-        <button class="card__cta" data-item="핀뱃지">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_27.png" alt="마그넷" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">마그넷</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
-        </div>
-        <button class="card__cta" data-item="마그넷">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_28.png" alt="뱃지" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">뱃지</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
-        </div>
-        <button class="card__cta" data-item="뱃지">구매 의사 등록</button>
-      </div>
-    </article>
-    <article class="card">
-      <div class="card__img-wrap"><img src="goods_new/item_29.png" alt="퍼즐" loading="lazy" /></div>
-      <div class="card__body">
-        <div class="card__head">
-          <h3 class="card__name" style="font-size: 15px; letter-spacing: -0.02em;">퍼즐</h3>
-          <button class="card__like" data-like aria-label="좋아요"><svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2 4 6 4c2 0 3.5 1 6 3.5C14.5 5 16 4 18 4c4 0 5.5 4 4 7.7C19.5 16.4 12 21 12 21z"/></svg></button>
-        </div>
-        <button class="card__cta" data-item="퍼즐">구매 의사 등록</button>
-      </div>
-    </article>
   </div>
 </section>
 
-<div id="sns"></div>
+<section id="sns" class="sns">
+  <div class="sns__head">
+    <h2 class="sns__title">호롱이 인스타그램</h2>
+    <p class="sns__sub">포항 곳곳을 여행하는 호롱이의 하루하루는 인스타그램에서 가장 먼저 만날 수 있어요.</p>
+  </div>
+  <div class="sns__grid">
+    <a class="sns__video-card" href="https://www.instagram.com/horong_pass/" target="_blank" rel="noopener">
+      <video autoplay muted loop playsinline poster="horong_e.png">
+        <source src="horong_sea.mp4" type="video/mp4" />
+      </video>
+      <div class="sns__video-tag">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+        <span>@horong_pass<br /><small>바다를 여행하는 호롱이 보러가기</small></span>
+      </div>
+    </a>
+    <div class="sns__gallery-card">
+      <img src="image.png" alt="호롱이 스티커 모음" loading="lazy" />
+      <a class="btn btn--primary sns__cta" href="https://www.instagram.com/horong_pass/" target="_blank" rel="noopener">인스타그램 팔로우하기 &rarr;</a>
+    </div>
+  </div>
+</section>
 
 <!-- 스토리 모달 -->
 <div class="story-modal" id="story-modal" role="dialog" aria-modal="true" aria-label="호롱이 탄생 스토리">
@@ -1454,7 +1473,9 @@
     });
   });
 
-  // ponytail: localStorage 저장. 실제 수집은 Formspree/Tally 엔드포인트로 submit 핸들러 한 곳만 교체
+  const SUPABASE_URL = 'https://vuglofumvelzbodjswyx.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_VWRku3Z9d9OakfT72imlZQ_jNMEDdyA';
+
   const modal = document.getElementById('interest-modal');
   const stepForm = document.getElementById('modal-step-form');
   const stepDone = document.getElementById('modal-step-done');
@@ -1468,6 +1489,16 @@
     const log = JSON.parse(localStorage.getItem('horong_interest') || '[]');
     log.push({ item, email: email || null, ts: new Date().toISOString() });
     localStorage.setItem('horong_interest', JSON.stringify(log));
+
+    fetch(`${SUPABASE_URL}/rest/v1/interest`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`
+      },
+      body: JSON.stringify({ item, email: email || null })
+    }).catch(() => {});
   }
 
   function markButtonDone(btn) {
