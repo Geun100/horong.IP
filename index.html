@@ -276,33 +276,6 @@
       line-height: 1.6;
     }
 
-    .goods__email-status {
-      margin-top: 14px;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: #fff;
-      border: 1px solid #ece4d4;
-      border-radius: 999px;
-      padding: 8px 18px;
-      font-size: 14px;
-      color: var(--ink);
-    }
-
-    .goods__email-status strong {
-      color: var(--peach-deep);
-    }
-
-    .goods__email-status button {
-      background: none;
-      border: none;
-      color: var(--ink-soft);
-      text-decoration: underline;
-      font-size: 13px;
-      cursor: pointer;
-      font-family: inherit;
-    }
-
     .toast {
       position: fixed;
       left: 50%;
@@ -1364,10 +1337,6 @@
     <div class="goods__head">
       <h2 class="goods__title">호롱이 굿즈</h2>
       <p class="goods__sub">아직 출시 전이에요. 갖고 싶은 굿즈에 구매 의사를 남겨주시면 출시 소식을 가장 먼저 알려드려요.</p>
-      <p class="goods__email-status" id="goods-email-status" hidden>
-        <span id="goods-email-text"></span>
-        <button type="button" id="goods-email-edit">변경</button>
-      </p>
     </div>
     <div class="goods__grid">
       <article class="card">
@@ -1549,7 +1518,7 @@
     </div>
     <div class="sns__grid">
       <a class="sns__video-card" href="https://www.instagram.com/horong_pass/" target="_blank" rel="noopener">
-        <video autoplay muted loop playsinline poster="horong_e.png">
+        <video class="sns__video" muted loop playsinline poster="horong_e.png">
           <source src="horong_sea.mp4" type="video/mp4" />
         </video>
         <div class="sns__video-tag">
@@ -1683,23 +1652,35 @@
   <script>
     // ── 히어로 영상: 첫 재생만 소리, 이후 반복은 무음 ──────────────
     (function () {
-      const oneShotSoundVideos = document.querySelectorAll('.hero__video, .sns__video-card video');
-      oneShotSoundVideos.forEach((video) => {
-        video.loop = false;
-        let soundUsed = false;
-        const tryUnmute = () => {
-          if (soundUsed) return;
-          soundUsed = true;
-          video.muted = false;
-        };
-        document.addEventListener('click', tryUnmute, { once: true });
-        document.addEventListener('touchstart', tryUnmute, { once: true });
-        video.addEventListener('ended', () => {
-          video.muted = true;
-          video.currentTime = 0;
-          video.play();
-        });
+      const heroVideo = document.querySelector('.hero__video');
+      if (!heroVideo) return;
+      heroVideo.loop = false;
+      let soundUsed = false;
+      const tryUnmute = () => {
+        if (soundUsed) return;
+        soundUsed = true;
+        heroVideo.muted = false;
+      };
+      document.addEventListener('click', tryUnmute, { once: true });
+      document.addEventListener('touchstart', tryUnmute, { once: true });
+      heroVideo.addEventListener('ended', () => {
+        heroVideo.muted = true;
+        heroVideo.currentTime = 0;
+        heroVideo.play();
       });
+    })();
+
+    // ── SNS 영상: 화면에 스크롤로 들어올 때만 재생 (무음, 계속 반복) ──
+    (function () {
+      const snsVideo = document.querySelector('.sns__video');
+      if (!snsVideo) return;
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) snsVideo.play().catch(() => { });
+          else snsVideo.pause();
+        });
+      }, { threshold: 0.35 });
+      observer.observe(snsVideo);
     })();
 
     // ── 스토리 모달 ──────────────────────────────────────────────
@@ -1840,9 +1821,6 @@
     }
 
     // ── 등록된 이메일 한 번만 물어보고 재사용 ──────────────────────
-    const emailStatus = document.getElementById('goods-email-status');
-    const emailStatusText = document.getElementById('goods-email-text');
-    const emailEditBtn = document.getElementById('goods-email-edit');
     const toast = document.getElementById('interest-toast');
     let toastTimer = null;
 
@@ -1869,20 +1847,6 @@
       localStorage.setItem('horong_email_choice_made', '1');
       if (email) localStorage.setItem('horong_email', email);
       else localStorage.removeItem('horong_email');
-      renderEmailStatus();
-    }
-
-    function renderEmailStatus() {
-      const email = getSavedEmail();
-      if (email) {
-        emailStatusText.innerHTML = `<strong>${email}</strong>로 출시 알림 받는 중`;
-        emailStatus.hidden = false;
-      } else if (hasEmailChoice()) {
-        emailStatusText.textContent = '이메일 없이 관심만 등록 중';
-        emailStatus.hidden = false;
-      } else {
-        emailStatus.hidden = true;
-      }
     }
 
     function openEmailModal(item) {
@@ -1915,8 +1879,6 @@
       });
     });
 
-    emailEditBtn.addEventListener('click', () => openEmailModal(null));
-
     form.addEventListener('submit', e => {
       e.preventDefault();
       const email = emailInput.value.trim();
@@ -1946,8 +1908,6 @@
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape' && !modal.hidden) modal.hidden = true;
     });
-
-    renderEmailStatus();
 
     // 히어로 벗어나면 nav 배경 전환 (클래스 토글 1회성이라 스크롤 리스너로 충분)
     const nav = document.querySelector('.nav');
