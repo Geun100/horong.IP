@@ -107,9 +107,103 @@
       color: var(--ink);
     }
 
+    .nav__toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .nav__toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      border-radius: 2px;
+      background: #fff;
+      transition: transform 0.25s ease, opacity 0.2s ease, background 0.2s ease;
+    }
+
+    .nav.is-solid .nav__toggle span {
+      background: var(--ink);
+    }
+
+    .nav__toggle.is-open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .nav__toggle.is-open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .nav__toggle.is-open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .nav__mobile {
+      display: none;
+    }
+
     @media (max-width: 640px) {
       .nav__links {
         display: none;
+      }
+
+      .nav__toggle {
+        display: flex;
+      }
+
+      .nav__mobile {
+        display: grid;
+        grid-template-rows: 0fr;
+        position: fixed;
+        top: 68px;
+        left: 0;
+        right: 0;
+        z-index: 49;
+        background: rgba(20, 14, 8, 0.97);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        transition: grid-template-rows 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s;
+      }
+
+      .nav.is-solid .nav__mobile {
+        background: rgba(246, 241, 231, 0.97);
+      }
+
+      .nav__mobile.is-open {
+        grid-template-rows: 1fr;
+      }
+
+      .nav__mobile-inner {
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        padding: 0 clamp(20px, 6vw, 32px);
+      }
+
+      .nav__mobile a {
+        padding: 16px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        color: #fff;
+        font-weight: 700;
+        font-size: 17px;
+        text-decoration: none;
+      }
+
+      .nav.is-solid .nav__mobile a {
+        color: var(--ink);
+        border-bottom-color: #ece4d4;
+      }
+
+      .nav__mobile a:last-child {
+        border-bottom: none;
       }
     }
 
@@ -1444,6 +1538,17 @@
       <li><a href="#sns">SNS</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
+    <button class="nav__toggle" id="nav-toggle" aria-label="메뉴 열기" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav__mobile" id="nav-mobile">
+      <div class="nav__mobile-inner">
+        <a href="#story">스토리</a>
+        <a href="#goods">굿즈</a>
+        <a href="#sns">SNS</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
   </nav>
 
   <header class="hero">
@@ -2175,6 +2280,22 @@
         target.scrollIntoView({ behavior: 'auto', block: 'start' });
       });
     });
+
+    // ── 모바일 햄버거 메뉴 ──────────────────────────────────────
+    const navToggle = document.getElementById('nav-toggle');
+    const navMobile = document.getElementById('nav-mobile');
+    function closeMobileNav() {
+      navToggle.classList.remove('is-open');
+      navMobile.classList.remove('is-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+    navToggle.addEventListener('click', () => {
+      const willOpen = !navMobile.classList.contains('is-open');
+      navToggle.classList.toggle('is-open', willOpen);
+      navMobile.classList.toggle('is-open', willOpen);
+      navToggle.setAttribute('aria-expanded', String(willOpen));
+    });
+    navMobile.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileNav));
 
     // 재방문 시 등록한 아이템 done 상태 복원
     const saved = JSON.parse(localStorage.getItem('horong_interest') || '[]');
