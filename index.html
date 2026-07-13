@@ -558,6 +558,172 @@
       justify-content: center;
     }
 
+    /* ── FAQ ─────────────────────────── */
+    .faq {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: clamp(80px, 12vh, 140px) clamp(20px, 4vw, 48px);
+    }
+
+    .faq__head {
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .faq__eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      color: var(--peach-deep);
+      margin-bottom: 10px;
+    }
+
+    .faq__title {
+      font-weight: 900;
+      font-size: clamp(30px, 4.5vw, 44px);
+      letter-spacing: -0.03em;
+    }
+
+    .faq__list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .faq__item {
+      background: #fff;
+      border: 1px solid #ece4d4;
+      border-radius: 18px;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.5s ease, transform 0.5s ease,
+        border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .faq__item.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .faq__item:hover {
+      border-color: rgba(245, 154, 107, 0.5);
+      box-shadow: 0 12px 28px rgba(89, 72, 50, 0.1);
+    }
+
+    .faq__item.is-open {
+      border-color: rgba(245, 154, 107, 0.6);
+      background: linear-gradient(180deg, #fffaf5 0%, #fff 100%);
+    }
+
+    .faq__q {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 24px;
+      background: none;
+      border: none;
+      font-family: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .faq__num {
+      flex-shrink: 0;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(245, 154, 107, 0.14);
+      color: var(--peach-deep);
+      font-size: 13px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, color 0.2s, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .faq__item.is-open .faq__num {
+      background: var(--peach);
+      color: #fff;
+      transform: scale(1.08);
+    }
+
+    .faq__q-text {
+      flex: 1;
+      font-weight: 700;
+      font-size: clamp(15px, 1.8vw, 17px);
+      color: var(--ink);
+    }
+
+    .faq__icon {
+      position: relative;
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+    }
+
+    .faq__icon::before,
+    .faq__icon::after {
+      content: '';
+      position: absolute;
+      background: var(--peach-deep);
+      border-radius: 2px;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s;
+    }
+
+    .faq__icon::before {
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      transform: translateY(-50%);
+    }
+
+    .faq__icon::after {
+      top: 0;
+      left: 50%;
+      width: 2px;
+      height: 100%;
+      transform: translateX(-50%);
+    }
+
+    .faq__item.is-open .faq__icon {
+      transform: rotate(180deg);
+    }
+
+    .faq__item.is-open .faq__icon::after {
+      transform: translateX(-50%) scaleY(0);
+    }
+
+    .faq__panel {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .faq__item.is-open .faq__panel {
+      grid-template-rows: 1fr;
+    }
+
+    .faq__panel-inner {
+      overflow: hidden;
+    }
+
+    .faq__item p {
+      padding: 0 24px 22px 70px;
+      color: var(--ink-soft);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .faq__item p a {
+      color: var(--peach-deep);
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
     /* ── Modal ─────────────────────────── */
     .modal[hidden] {
       display: none;
@@ -646,18 +812,6 @@
     .modal__submit:hover {
       background: var(--peach-deep);
       color: #fff;
-    }
-
-    .modal__skip {
-      margin-top: 4px;
-      background: none;
-      border: none;
-      font-family: inherit;
-      font-size: 14px;
-      color: var(--ink-soft);
-      cursor: pointer;
-      text-decoration: underline;
-      text-underline-offset: 3px;
     }
 
     .modal__close {
@@ -1288,6 +1442,7 @@
       <li><a href="#story">스토리</a></li>
       <li><a href="#goods">굿즈</a></li>
       <li><a href="#sns">SNS</a></li>
+      <li><a href="#faq">FAQ</a></li>
     </ul>
   </nav>
 
@@ -1538,6 +1693,90 @@
     </div>
   </section>
 
+  <section id="faq" class="faq">
+    <div class="faq__head">
+      <p class="faq__eyebrow">FAQ</p>
+      <h2 class="faq__title">자주 묻는 질문</h2>
+    </div>
+    <div class="faq__list">
+      <div class="faq__item is-open">
+        <button class="faq__q" type="button" aria-expanded="true">
+          <span class="faq__num">Q1</span>
+          <span class="faq__q-text">굿즈 지금 구매할 수 있나요?</span>
+          <span class="faq__icon"></span>
+        </button>
+        <div class="faq__panel">
+          <div class="faq__panel-inner">
+            <p>아직이에요. 아직 출시 전이라 "구매 의사 등록"으로 관심을 남겨주시면, 실제 출시될 때 가장 먼저 알려드려요.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" type="button" aria-expanded="false">
+          <span class="faq__num">Q2</span>
+          <span class="faq__q-text">구매 의사 등록하면 결제되나요?</span>
+          <span class="faq__icon"></span>
+        </button>
+        <div class="faq__panel">
+          <div class="faq__panel-inner">
+            <p>아니요. 결제 정보는 받지 않아요. 관심 있는 굿즈에 알림 신청만 하는 거예요.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" type="button" aria-expanded="false">
+          <span class="faq__num">Q3</span>
+          <span class="faq__q-text">카드에 있는 이미지, 실제 제품 사진인가요?</span>
+          <span class="faq__icon"></span>
+        </button>
+        <div class="faq__panel">
+          <div class="faq__panel-inner">
+            <p>아직 제작 전이라 렌더링 시안이에요. 실제 출시되면 실물 사진으로 교체할 예정이에요.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" type="button" aria-expanded="false">
+          <span class="faq__num">Q4</span>
+          <span class="faq__q-text">언제 출시되나요?</span>
+          <span class="faq__icon"></span>
+        </button>
+        <div class="faq__panel">
+          <div class="faq__panel-inner">
+            <p>아직 정해지지 않았어요. 관심 등록 수를 보고 어떤 굿즈부터 만들지 정할 예정이라, 응원해주실수록 빨라져요.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" type="button" aria-expanded="false">
+          <span class="faq__num">Q5</span>
+          <span class="faq__q-text">호롱이는 포항이랑 무슨 관계인가요?</span>
+          <span class="faq__icon"></span>
+        </button>
+        <div class="faq__panel">
+          <div class="faq__panel-inner">
+            <p>호미곶에서 뜨는 첫 해 + 호롱불에서 따온 캐릭터예요. <a href="#story">"왜 호롱일까요"</a> 섹션에서 더 자세히 볼 수 있어요.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" type="button" aria-expanded="false">
+          <span class="faq__num">Q6</span>
+          <span class="faq__q-text">문의는 어디로 하나요?</span>
+          <span class="faq__icon"></span>
+        </button>
+        <div class="faq__panel">
+          <div class="faq__panel-inner">
+            <p>
+              지금은 <a href="#sns">SNS 섹션</a>의 채널로 연락 주시면 돼요. 인스타그램 DM이나<br />
+              호롱이 문의방 <a href="https://open.kakao.com/o/svasERDi" target="_blank" rel="noopener">카카오톡 오픈채팅방</a>도 열려있어요.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- 스토리 모달 -->
   <div class="story-modal" id="story-modal" role="dialog" aria-modal="true" aria-label="호롱이 탄생 스토리">
     <div class="story-modal__glow"></div>
@@ -1636,7 +1875,6 @@
           <label class="modal__label" for="interest-email">이메일</label>
           <input class="modal__input" id="interest-email" type="email" placeholder="you@example.com" required />
           <button class="modal__submit" type="submit">출시 알림 받기</button>
-          <button class="modal__skip" type="button" data-close>이메일 없이 등록만 할게요</button>
         </form>
       </div>
       <div id="modal-step-done" class="modal__done" hidden>
@@ -1839,14 +2077,8 @@
       return localStorage.getItem('horong_email') || '';
     }
 
-    function hasEmailChoice() {
-      return localStorage.getItem('horong_email_choice_made') === '1';
-    }
-
-    function saveEmailChoice(email) {
-      localStorage.setItem('horong_email_choice_made', '1');
-      if (email) localStorage.setItem('horong_email', email);
-      else localStorage.removeItem('horong_email');
+    function hasSavedEmail() {
+      return !!getSavedEmail();
     }
 
     function openEmailModal(item) {
@@ -1855,7 +2087,7 @@
         ? [...document.querySelectorAll('.card__cta')].find(b => b.dataset.item === item)
         : null;
       modalDescEl.innerHTML = item
-        ? `<strong>${item}</strong> 구매 의사가 등록됐어요.<br />이메일을 남기면 출시 때 바로 알려드릴게요.`
+        ? `<strong>${item}</strong> 구매 의사를 등록하려면 이메일이 필요해요.<br />출시 때 가장 먼저 알려드릴게요.`
         : '이메일을 남기면 출시 때 바로 알려드릴게요.';
       stepForm.hidden = false;
       stepDone.hidden = true;
@@ -1867,12 +2099,12 @@
     document.querySelectorAll('.card__cta').forEach(btn => {
       btn.addEventListener('click', () => {
         const item = btn.dataset.item;
-        if (hasEmailChoice()) {
-          // 이미 이메일(또는 미입력) 선택을 마쳤으면 모달 없이 바로 등록
+        if (hasSavedEmail()) {
+          // 이미 이메일을 등록했으면 모달 없이 바로 등록
           const email = getSavedEmail();
-          markInterest(item, email || null);
+          markInterest(item, email);
           markButtonDone(btn);
-          showToast(email ? `등록완료 · ${email}로 알려드릴게요` : `${item} 등록완료`);
+          showToast(`등록완료 · ${email}로 알려드릴게요`);
           return;
         }
         openEmailModal(item);
@@ -1882,9 +2114,10 @@
     form.addEventListener('submit', e => {
       e.preventDefault();
       const email = emailInput.value.trim();
-      saveEmailChoice(email);
+      if (!email) return;
+      localStorage.setItem('horong_email', email);
       if (currentItem) {
-        markInterest(currentItem, email || null);
+        markInterest(currentItem, email);
         markButtonDone(currentBtn);
       }
       stepForm.hidden = true;
@@ -1894,13 +2127,6 @@
 
     modal.addEventListener('click', e => {
       if (e.target.hasAttribute('data-close')) {
-        if (!stepForm.hidden && !hasEmailChoice()) {   // 이메일 없이 닫아도 선택 자체는 기록
-          saveEmailChoice('');
-          if (currentItem) {
-            markInterest(currentItem, null);
-            markButtonDone(currentBtn);
-          }
-        }
         modal.hidden = true;
       }
     });
@@ -1908,6 +2134,28 @@
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape' && !modal.hidden) modal.hidden = true;
     });
+
+    // ── FAQ 아코디언 + 스크롤 등장 ──────────────────────────────
+    document.querySelectorAll('.faq__item').forEach((item, i) => {
+      const btn = item.querySelector('.faq__q');
+      btn.addEventListener('click', () => {
+        const willOpen = !item.classList.contains('is-open');
+        item.classList.toggle('is-open', willOpen);
+        btn.setAttribute('aria-expanded', String(willOpen));
+      });
+
+      item.style.transitionDelay = `${Math.min(i, 6) * 70}ms`;
+    });
+
+    const faqObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          faqObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.faq__item').forEach(item => faqObserver.observe(item));
 
     // 히어로 벗어나면 nav 배경 전환 (클래스 토글 1회성이라 스크롤 리스너로 충분)
     const nav = document.querySelector('.nav');
