@@ -539,6 +539,91 @@
       cursor: default;
     }
 
+    /* ── Wallpaper teaser ────────────── */
+    .wallpaper-teaser {
+      max-width: 1400px;
+      margin: 0 auto clamp(40px, 6vh, 72px);
+      display: flex;
+      align-items: center;
+      gap: clamp(20px, 3vw, 32px);
+      padding: clamp(20px, 3vw, 28px);
+      border-radius: 24px;
+      background: #fff;
+      text-decoration: none;
+      color: var(--ink);
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s;
+    }
+
+    .wallpaper-teaser:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(89, 72, 50, 0.14);
+    }
+
+    .wallpaper-teaser__imgs {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .wallpaper-teaser__imgs img {
+      width: 84px;
+      height: 84px;
+      object-fit: cover;
+      border-radius: 14px;
+    }
+
+    .wallpaper-teaser__body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .wallpaper-teaser__eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--peach-deep);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .wallpaper-teaser__title {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+
+    .wallpaper-teaser__desc {
+      font-size: 14px;
+      color: var(--ink-soft);
+    }
+
+    .wallpaper-teaser__arrow {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--peach-deep);
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 640px) {
+      .wallpaper-teaser {
+        margin: 0 clamp(16px, 4vw, 24px) clamp(40px, 6vh, 72px);
+      }
+
+      .wallpaper-teaser__imgs img {
+        width: 56px;
+        height: 56px;
+      }
+
+      .wallpaper-teaser__title {
+        font-size: 15px;
+      }
+
+      .wallpaper-teaser__desc {
+        display: none;
+      }
+    }
+
     /* ── SNS ─────────────────────────── */
     .sns {
       max-width: 1400px;
@@ -1537,6 +1622,7 @@
       <li><a href="#goods">굿즈</a></li>
       <li><a href="#sns">SNS</a></li>
       <li><a href="#faq">FAQ</a></li>
+      <li><a href="wallpapers.html">배경화면</a></li>
     </ul>
     <button class="nav__toggle" id="nav-toggle" aria-label="메뉴 열기" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -1547,6 +1633,7 @@
         <a href="#goods">굿즈</a>
         <a href="#sns">SNS</a>
         <a href="#faq">FAQ</a>
+        <a href="wallpapers.html">배경화면</a>
       </div>
     </div>
   </nav>
@@ -1770,6 +1857,19 @@
 
     </div>
   </section>
+
+  <a class="wallpaper-teaser" href="wallpapers.html">
+    <div class="wallpaper-teaser__imgs">
+      <img src="wallpapers/IMG_0526.png" alt="호롱이 배경화면" loading="lazy" />
+      <img src="wallpapers/IMG_0529.png" alt="호롱이 배경화면" loading="lazy" />
+    </div>
+    <div class="wallpaper-teaser__body">
+      <p class="wallpaper-teaser__eyebrow">Wallpaper</p>
+      <h3 class="wallpaper-teaser__title">호롱이 배경화면 다운로드</h3>
+      <p class="wallpaper-teaser__desc">휴대폰·컴퓨터 배경화면으로 쓸 수 있는 호롱이 이미지를 모아뒀어요.</p>
+    </div>
+    <span class="wallpaper-teaser__arrow">&rarr;</span>
+  </a>
 
   <section id="sns" class="sns">
     <div class="sns__head">

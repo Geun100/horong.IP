@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>호롱이 배경화면 다운로드 · HORONG</title>
+  <meta name="description" content="호미곶 첫 햇살에서 태어난 작은 정령, 호롱이의 배경화면을 무료로 다운로드하세요." />
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <style>
+    :root {
+      --cream: #f6f1e7;
+      --ink: #2b241c;
+      --ink-soft: #6f6558;
+      --peach: #f59a6b;
+      --peach-deep: #e07a45;
+      --dawn: #ffd9a0;
+      /* 호롱불이 밝히는 새벽빛 */
+      --dusk: #241a12;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Pretendard Variable", Pretendard, -apple-system, sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
+    /* ── Hero ─────────────────────────── */
+    .head {
+      position: relative;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: clamp(28px, 6vh, 56px) clamp(20px, 4vw, 48px) clamp(32px, 6vh, 56px);
+      overflow: hidden;
+    }
+
+    .head::before {
+      content: "";
+      position: absolute;
+      top: -10%;
+      left: clamp(-80px, -6vw, -20px);
+      width: min(560px, 60vw);
+      height: min(560px, 60vw);
+      background: radial-gradient(circle, var(--dawn) 0%, rgba(255, 217, 160, 0.35) 45%, transparent 72%);
+      filter: blur(6px);
+      opacity: 0.8;
+      animation: glow-breathe 7s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes glow-breathe {
+
+      0%,
+      100% {
+        opacity: 0.65;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.9;
+        transform: scale(1.06);
+      }
+    }
+
+    .head__back {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink-soft);
+      text-decoration: none;
+      margin-bottom: 28px;
+      padding: 8px 14px 8px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.55);
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .head__back:hover {
+      color: var(--peach-deep);
+      background: #fff;
+    }
+
+    .head__eyebrow {
+      position: relative;
+      z-index: 1;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--peach-deep);
+      margin-bottom: 14px;
+    }
+
+    .head__title {
+      position: relative;
+      z-index: 1;
+      font-size: clamp(34px, 5.5vw, 56px);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+      margin-bottom: 16px;
+    }
+
+    .head__row {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px 20px;
+    }
+
+    .head__desc {
+      font-size: 15px;
+      color: var(--ink-soft);
+      max-width: 52ch;
+      line-height: 1.65;
+    }
+
+    .head__count {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink-soft);
+      white-space: nowrap;
+    }
+
+    .head__count b {
+      color: var(--peach-deep);
+      font-weight: 800;
+    }
+
+    /* ── Grid ─────────────────────────── */
+    .grid {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 clamp(20px, 4vw, 48px) clamp(60px, 10vh, 120px);
+      column-count: 2;
+      column-gap: 18px;
+    }
+
+    @media (min-width: 640px) {
+      .grid {
+        column-count: 3;
+      }
+    }
+
+    @media (min-width: 1000px) {
+      .grid {
+        column-count: 4;
+      }
+    }
+
+    .tile {
+      position: relative;
+      break-inside: avoid;
+      margin-bottom: 18px;
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .tile.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .tile::before {
+      content: "";
+      position: absolute;
+      inset: -6px;
+      border-radius: 26px;
+      background: radial-gradient(circle at 50% 40%, var(--dawn), var(--peach) 55%, transparent 75%);
+      opacity: 0;
+      filter: blur(16px);
+      transition: opacity 0.35s ease;
+      z-index: 0;
+    }
+
+    .tile:hover::before,
+    .tile:focus-within::before {
+      opacity: 0.85;
+    }
+
+    .tile__frame {
+      position: relative;
+      z-index: 1;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid rgba(43, 36, 28, 0.06);
+      box-shadow: 0 10px 24px -14px rgba(224, 122, 69, 0.35);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .tile:hover .tile__frame,
+    .tile:focus-within .tile__frame {
+      transform: translateY(-3px) scale(1.015);
+      box-shadow: 0 18px 34px -14px rgba(224, 122, 69, 0.5);
+    }
+
+    .tile img {
+      display: block;
+      width: 100%;
+      height: auto;
+      cursor: zoom-in;
+    }
+
+    .tile__dl {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(36, 26, 18, 0.8);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.2s, transform 0.2s, background 0.2s;
+    }
+
+    .tile__dl svg {
+      width: 15px;
+      height: 15px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .tile:hover .tile__dl,
+    .tile:focus-within .tile__dl {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .tile__dl:hover,
+    .tile__dl:focus-visible {
+      background: var(--peach-deep);
+    }
+
+    @media (hover: none) {
+      .tile__dl {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--peach-deep);
+      outline-offset: 2px;
+    }
+
+    /* ── Lightbox ─────────────────────────── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: grid;
+      place-items: center;
+      background: rgba(36, 26, 18, 0.92);
+      backdrop-filter: blur(6px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease;
+      padding: clamp(16px, 4vw, 40px);
+    }
+
+    .lightbox.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lightbox__img {
+      max-width: min(88vw, 640px);
+      max-height: 86vh;
+      width: auto;
+      border-radius: 18px;
+      box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.6);
+      transform: scale(0.97);
+      transition: transform 0.25s ease;
+    }
+
+    .lightbox.is-open .lightbox__img {
+      transform: scale(1);
+    }
+
+    .lightbox__bar {
+      position: fixed;
+      top: clamp(14px, 3vh, 28px);
+      right: clamp(14px, 3vw, 28px);
+      left: clamp(14px, 3vw, 28px);
+      z-index: 101;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      pointer-events: none;
+    }
+
+    .lightbox__count {
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      pointer-events: auto;
+    }
+
+    .lightbox__actions {
+      display: flex;
+      gap: 8px;
+      pointer-events: auto;
+    }
+
+    .lightbox__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .lightbox__btn:hover {
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    .lightbox__btn--accent {
+      background: var(--peach);
+      color: var(--dusk);
+    }
+
+    .lightbox__btn--accent:hover {
+      background: var(--dawn);
+    }
+
+    .lightbox__btn svg {
+      width: 15px;
+      height: 15px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .lightbox__nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 101;
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .lightbox__nav:hover {
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    .lightbox__nav svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .lightbox__nav--prev {
+      left: clamp(10px, 3vw, 32px);
+    }
+
+    .lightbox__nav--next {
+      right: clamp(10px, 3vw, 32px);
+    }
+
+    @media (max-width: 640px) {
+      .lightbox__nav {
+        width: 38px;
+        height: 38px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="head">
+    <a href="index.html" class="head__back">← 메인으로</a>
+    <div class="head__eyebrow">WALLPAPER</div>
+    <h1 class="head__title">호롱이 배경화면</h1>
+    <div class="head__row">
+      <p class="head__desc">마음에 드는 이미지를 눌러 크게 보고, 휴대폰이나 컴퓨터 배경화면으로 저장해보세요.</p>
+      <p class="head__count">총 <b id="wallpaper-count">0</b>장 · 이미지를 탭하면 크게 볼 수 있어요</p>
+    </div>
+  </header>
+
+  <main class="grid" id="wallpaper-grid"></main>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="배경화면 크게 보기">
+    <div class="lightbox__bar">
+      <span class="lightbox__count" id="lightbox-count"></span>
+      <div class="lightbox__actions">
+        <a class="lightbox__btn lightbox__btn--accent" id="lightbox-dl" download>
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3v13m0 0l-5-5m5 5l5-5M5 21h14" />
+          </svg>
+          다운로드
+        </a>
+        <button class="lightbox__btn" id="lightbox-close" type="button" aria-label="닫기">
+          <svg viewBox="0 0 24 24">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+          닫기
+        </button>
+      </div>
+    </div>
+    <button class="lightbox__nav lightbox__nav--prev" id="lightbox-prev" type="button" aria-label="이전 이미지">
+      <svg viewBox="0 0 24 24">
+        <path d="M15 6l-6 6 6 6" />
+      </svg>
+    </button>
+    <img class="lightbox__img" id="lightbox-img" alt="" />
+    <button class="lightbox__nav lightbox__nav--next" id="lightbox-next" type="button" aria-label="다음 이미지">
+      <svg viewBox="0 0 24 24">
+        <path d="M9 6l6 6-6 6" />
+      </svg>
+    </button>
+  </div>
+
+  <script>
+    const files = [
+      'IMG_0521.png', 'IMG_0522.png', 'IMG_0523.png', 'IMG_0524.png',
+      'IMG_0525.png', 'IMG_0526.png', 'IMG_0527.png', 'IMG_0528.png',
+      'IMG_0529.png'
+    ];
+    const dlIcon = `<svg viewBox="0 0 24 24"><path d="M12 3v13m0 0l-5-5m5 5l5-5M5 21h14"/></svg>`;
+    const grid = document.getElementById('wallpaper-grid');
+    document.getElementById('wallpaper-count').textContent = files.length;
+
+    const label = (i) => `호롱이 배경화면 ${String(i + 1).padStart(2, '0')}`;
+    const dlName = (i) => `호롱이-배경화면-${String(i + 1).padStart(2, '0')}.png`;
+
+    grid.innerHTML = files.map((name, i) => `
+      <div class="tile">
+        <div class="tile__frame">
+          <img src="wallpapers/${name}" alt="${label(i)}" loading="lazy" data-index="${i}" />
+        </div>
+        <a class="tile__dl" href="wallpapers/${name}" download="${dlName(i)}">${dlIcon}다운로드</a>
+      </div>
+    `).join('');
+
+    // 스크롤 인 애니메이션
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    grid.querySelectorAll('.tile').forEach(t => io.observe(t));
+
+    // 라이트박스
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightbox-img');
+    const lbDl = document.getElementById('lightbox-dl');
+    const lbCount = document.getElementById('lightbox-count');
+    let current = 0;
+
+    function openLightbox(i) {
+      current = i;
+      renderLightbox();
+      lightbox.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    function renderLightbox() {
+      lbImg.src = `wallpapers/${files[current]}`;
+      lbImg.alt = label(current);
+      lbDl.href = `wallpapers/${files[current]}`;
+      lbDl.download = dlName(current);
+      lbCount.textContent = `${current + 1} / ${files.length}`;
+    }
+
+    function step(delta) {
+      current = (current + delta + files.length) % files.length;
+      renderLightbox();
+    }
+
+    grid.addEventListener('click', (e) => {
+      const img = e.target.closest('img[data-index]');
+      if (img) openLightbox(Number(img.dataset.index));
+    });
+
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.getElementById('lightbox-prev').addEventListener('click', () => step(-1));
+    document.getElementById('lightbox-next').addEventListener('click', () => step(1));
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('is-open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') step(-1);
+      if (e.key === 'ArrowRight') step(1);
+    });
+  </script>
+</body>
+
+</html>
